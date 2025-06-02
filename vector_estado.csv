@@ -1,0 +1,11 @@
+iteracion;tiempo;evento;box_estado;cola_espera;tipo_practica;tiempo_duracion;tiempo_llegada;random_duracion;random_llegada
+1;323.35;llegada_cirugia;Libre;0;Cirugia;80.2;824.19;0.0102;0.566
+2;403.55;fin_cirugia;Ocupado;0;Cirugia;80.2;824.19;;0.566
+3;413.55;_fin_sanitizacion;Sanitizando;0;—;;;;
+4;448.42;llegada_emergencia;Libre;0;Emergencias;81.62;838.24;0.1937;0.1243
+5;530.04;fin_emergencias;Ocupado;0;Emergencias;81.62;838.24;;0.1243
+6;542.04;_fin_sanitizacion;Sanitizando;0;—;;;;
+7;798.05;llegada_clinica;Libre;0;Clinica;71.95;1532.95;0.2986;0.5621
+8;824.19;llegada_cirugia;Ocupado;1;Cirugia;80.2;939.13;;0.1743
+9;838.24;llegada_emergencia;Ocupado;2;Emergencias;81.62;1331.02;;0.5532
+10;870.0;fin_clinica;Ocupado;2;Clinica;71.95;1532.95;;0.5621

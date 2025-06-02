@@ -1,19 +1,25 @@
 from main import rng
-import Practica
 
-
-class Clinica(Practica):
+class Clinica():
    
-    def frecuencia_llegada(self):
+    def __init__(self):
+        super().__init__()
+        self.llegada = 0
+        self.duracion_var = 0   
+        self.random_num_frecuencia = 0
+        self.random_num_duracion = 0
+        self.frecuencia_llegada(tiempo=0)
+        self.duracion()
+        
+    def frecuencia_llegada(self, tiempo: float):
         # Distribución uniforme entre 10 y 14 horas (en minutos: 600 a 840)
-        random_num = rng.uniform(0, 1)
+        self.random_num_frecuencia = rng.uniform(0, 1)
         min_minutos = 10 * 60
         max_minutos = 14 * 60
-        return min_minutos + (max_minutos - min_minutos) * random_num
-    
+        self.llegada = min_minutos + (max_minutos - min_minutos) * self.random_num_frecuencia + tiempo
     def duracion(self):
         # Distribución uniforme entre 1 y 2 horas (en minutos: 60 a 120)
-        random_num = rng.uniform(0, 1)
+        self.random_num_duracion = rng.uniform(0, 1)
         min_minutos = 60
         max_minutos = 100
-        return min_minutos + (max_minutos - min_minutos) * random_num
+        self.duracion_var = min_minutos + (max_minutos - min_minutos) * self.random_num_duracion

@@ -8,5 +8,6 @@ class Practica:
     def frecuencia_llegada(self):
         pass
     
+    @abstractmethod
     def duracion(self):
         pass

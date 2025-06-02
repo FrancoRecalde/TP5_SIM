@@ -1,7 +1,7 @@
-from TP2_SIM.iniciar import *
+#import iniciar_colas
 import random
-
-
+SEED = 12345
+rng = random.Random(SEED)
 
 
 def main():
@@ -15,6 +15,5 @@ def main():
     
     
 if __name__ == "__main__":
-    SEED = 12345
-    rng = random.Random(SEED)
-    main()
+    pass
+    #main()
