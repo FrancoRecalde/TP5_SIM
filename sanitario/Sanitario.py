@@ -1,5 +1,4 @@
-from main import rng
-
+# File: TP2_SIM/evento/Evento.py
 class Sanitario:
     
     def __init__(self, s_min, s_max, a, b, h):

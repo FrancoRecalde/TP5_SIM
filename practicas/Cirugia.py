@@ -1,5 +1,5 @@
 import math
-from main import rng
+from RNG import rng
 
 class Cirugia:
     def __init__(self, media_llegada, duracion_min, duracion_max):

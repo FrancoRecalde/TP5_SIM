@@ -4,7 +4,7 @@ import practicas.Emergencias as Emergencias
 from evento.Evento import Evento
 from box.Box import Box
 from sanitario.Sanitario import Sanitario
-from main import rng
+from RNG import rng
 import csv
 
 
@@ -13,22 +13,22 @@ def prioridad(practica):
 
 
 def iniciar_colas(
-    tiempo: int = 0,
-    iteraciones: int = 0,
-    desde: int = 0,
-    media_llegada_cirugia: float = 600,
-    llegada_clinica_min: float = 600,
-    llegada_clinica_max: float = 840,
-    llegada_emergencia_min: float = 360,
-    llegada_emergencia_max: float = 600,
-    duracion_min: float = 60,
-    duracion_max: float = 120,
-    sanit_s_min: float = 1,
-    sanit_s_max: float = 3,
-    edo_const_1: float = 3,
-    edo_const_2: float = 0.05,
-    h: float = 0.1,
-    max_espera: int = 5
+    tiempo,
+    iteraciones,
+    desde,
+    media_llegada_cirugia,
+    llegada_clinica_min,
+    llegada_clinica_max,
+    llegada_emergencia_min,
+    llegada_emergencia_max,
+    duracion_min,
+    duracion_max,
+    sanit_s_min,
+    sanit_s_max,
+    edo_const_1,
+    edo_const_2,
+    h,
+    max_espera
 ):
     vector_estado = []
     t = 0
@@ -55,6 +55,7 @@ def iniciar_colas(
     eventos_futuros.sort()
 
     for i in range(iteraciones):
+        
         if not eventos_futuros:
             break
 
@@ -194,5 +195,3 @@ def iniciar_colas(
         writer.writerows(vector_estado)
 
 
-if __name__ == "__main__":
-    iniciar_colas(tiempo=10000, iteraciones=20, desde=0)

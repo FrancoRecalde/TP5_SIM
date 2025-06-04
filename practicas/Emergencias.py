@@ -1,4 +1,4 @@
-from main import rng
+from RNG import rng
 
 class Emergencias:
     def __init__(self, llegada_min, llegada_max, duracion_min, duracion_max):

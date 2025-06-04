@@ -1,5 +1,4 @@
 
-
 class Evento:
     def __init__(self, tiempo: float, tipo: str, practica=None, descripcion: str = ""):
         self.tiempo = tiempo
