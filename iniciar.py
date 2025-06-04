@@ -16,7 +16,7 @@ def iniciar_colas(
     tiempo: int = 0,
     iteraciones: int = 0,
     desde: int = 0,
-    media_llegada_cirugia: float = 60,
+    media_llegada_cirugia: float = 600,
     llegada_clinica_min: float = 600,
     llegada_clinica_max: float = 840,
     llegada_emergencia_min: float = 360,
@@ -28,7 +28,7 @@ def iniciar_colas(
     edo_const_1: float = 3,
     edo_const_2: float = 0.05,
     h: float = 0.1,
-    max_espera: int = 1
+    max_espera: int = 5
 ):
     vector_estado = []
     t = 0
@@ -40,6 +40,8 @@ def iniciar_colas(
 
     suma_espera_cirugia = suma_espera_clinica = suma_espera_emergencia = 0
     cant_turnos_cirugia = cant_turnos_clinica = cant_turnos_emergencia = 0
+
+    tiempo_total_sanit = 0
 
     cirugia = Cirugia.Cirugia(media_llegada_cirugia, duracion_min, duracion_max)
     clinica = Clinica.Clinica(llegada_clinica_min, llegada_clinica_max, duracion_min, duracion_max)
@@ -67,7 +69,6 @@ def iniciar_colas(
         sanit_s = None
         tiempo_sanit = None
 
-        # inicializar campos por defecto
         c_rnd, c_dur, c_lleg = "", "", ""
         cl_rnd, cl_dur, cl_lleg = "", "", ""
         e_rnd, e_dur, e_lleg = "", "", ""
@@ -92,7 +93,7 @@ def iniciar_colas(
                     cant_turnos_emergencia += 1
             else:
                 if len(cola_espera) < max_espera:
-                    cola_espera.append(practica)
+                    cola_espera.append((practica, t))  # t es el momento de llegada a la cola
 
             practica.frecuencia_llegada(t)
             eventos_futuros.append(Evento(practica.llegada, evento.tipo, practica))
@@ -110,12 +111,13 @@ def iniciar_colas(
             random_sanit = rng.random()
             sanit_s = 1 + random_sanit * (sanit_s_max - sanit_s_min)
             tiempo_sanit = sanitario.runge_kutta(sanit_s)
+            tiempo_total_sanit += tiempo_sanit
             eventos_futuros.append(Evento(t + tiempo_sanit, "_fin_sanitizacion"))
 
         elif evento.tipo == "_fin_sanitizacion":
             if cola_espera:
-                cola_espera.sort(key=lambda p: (prioridad(p), p.llegada))
-                proxima = cola_espera.pop(0)
+                cola_espera.sort(key=lambda p: (prioridad(p[0]), p[1]))
+                proxima, llegada_cola = cola_espera.pop(0)
                 box.set_ocupado()
                 proxima.duracion()
                 random_duracion = proxima.random_num_duracion
@@ -123,7 +125,7 @@ def iniciar_colas(
                 fin_tipo = f"fin_{proxima.__class__.__name__.lower()}"
                 eventos_futuros.append(Evento(t + duracion_en_box, fin_tipo, proxima))
 
-                espera = t - proxima.llegada
+                espera = t - llegada_cola  # espera real desde que llegó a la cola
                 if isinstance(proxima, Cirugia.Cirugia):
                     suma_espera_cirugia += espera
                     cant_turnos_cirugia += 1
@@ -139,43 +141,49 @@ def iniciar_colas(
         eventos_futuros.sort()
         if t >= desde:
             registro = {
-            "tiempo": round(t, 2),
-            "evento": evento.tipo,
+                "tiempo": round(t, 2),
+                "evento": evento.tipo,
 
-            "cirugia_rnd_llegada": c_rnd,
-            "cirugia_duracion": c_dur,
-            "cirugia_llegada": c_lleg,
+                "cirugia_rnd_llegada": c_rnd,
+                "cirugia_duracion": c_dur,
+                "cirugia_llegada": c_lleg,
 
-            "clinica_rnd_llegada": cl_rnd,
-            "clinica_duracion": cl_dur,
-            "clinica_llegada": cl_lleg,
+                "clinica_rnd_llegada": cl_rnd,
+                "clinica_duracion": cl_dur,
+                "clinica_llegada": cl_lleg,
 
-            "emergencia_rnd_llegada": e_rnd,
-            "emergencia_duracion": e_dur,
-            "emergencia_llegada": e_lleg,
+                "emergencia_rnd_llegada": e_rnd,
+                "emergencia_duracion": e_dur,
+                "emergencia_llegada": e_lleg,
 
-            "box_rnd_duracion": round(random_duracion, 4) if random_duracion is not None else "",
-            "box_duracion": round(duracion_en_box, 2) if duracion_en_box else "",
-            "box_fin": round(t + duracion_en_box, 2) if duracion_en_box else "",
+                "box_rnd_duracion": round(random_duracion, 4) if random_duracion is not None else "",
+                "box_duracion": round(duracion_en_box, 2) if duracion_en_box else "",
+                "box_fin": round(t + duracion_en_box, 2) if duracion_en_box else "",
 
-            "sanit_rnd": round(random_sanit, 4) if random_sanit else "",
-            "sanit_s": round(sanit_s, 2) if sanit_s else "",
-            "sanit_duracion": round(tiempo_sanit, 2) if tiempo_sanit else "",
-            "sanit_fin": round(t + tiempo_sanit, 2) if tiempo_sanit else "",
+                "sanit_rnd": round(random_sanit, 4) if random_sanit else "",
+                "sanit_s": round(sanit_s, 2) if sanit_s else "",
+                "sanit_duracion": round(tiempo_sanit, 2) if tiempo_sanit else "",
+                "sanit_fin": round(t + tiempo_sanit, 2) if tiempo_sanit else "",
 
-            "estado_box": esta,
-            "cola_normal": len([p for p in cola_espera if prioridad(p) == 1]),
-            "cola_prioritaria": len([p for p in cola_espera if prioridad(p) == 2]),
+                "estado_box": esta,
+                "cola_normal": len([p for p in cola_espera if prioridad(p[0]) == 1]),
+                "cola_prioritaria": len([p for p in cola_espera if prioridad(p[0]) == 2]),
 
-            "espera_cirugia": round(suma_espera_cirugia, 2),
-            "espera_clinica": round(suma_espera_clinica, 2),
-            "espera_emergencia": round(suma_espera_emergencia, 2),
+                "espera_cirugia": round(suma_espera_cirugia, 2),
+                "espera_clinica": round(suma_espera_clinica, 2),
+                "espera_emergencia": round(suma_espera_emergencia, 2),
 
-            "turnos_cirugia": cant_turnos_cirugia,
-            "turnos_clinica": cant_turnos_clinica,
-            "turnos_emergencia": cant_turnos_emergencia,
+                "turnos_cirugia": cant_turnos_cirugia,
+                "turnos_clinica": cant_turnos_clinica,
+                "turnos_emergencia": cant_turnos_emergencia,
 
-            "eventos_futuros": ", ".join(f"{ev.tipo}@{round(ev.tiempo, 2)}" for ev in eventos_futuros)
+                "prom_espera_cirugia": round(suma_espera_cirugia / cant_turnos_cirugia, 2) if cant_turnos_cirugia else 0,
+                "prom_espera_clinica": round(suma_espera_clinica / cant_turnos_clinica, 2) if cant_turnos_clinica else 0,
+                "prom_espera_emergencia": round(suma_espera_emergencia / cant_turnos_emergencia, 2) if cant_turnos_emergencia else 0,
+
+                "tasa_ocupacion_sanit": round((tiempo_total_sanit / t) * 100, 2) if t else 0,
+
+                "eventos_futuros": ", ".join(f"{ev.tipo}@{round(ev.tiempo, 2)}" for ev in eventos_futuros)
             }
 
             vector_estado.append(registro)
@@ -187,4 +195,4 @@ def iniciar_colas(
 
 
 if __name__ == "__main__":
-    iniciar_colas(tiempo=10000, iteraciones=100, desde=2000)
+    iniciar_colas(tiempo=10000, iteraciones=20, desde=0)
