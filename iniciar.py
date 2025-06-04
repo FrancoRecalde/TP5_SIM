@@ -9,12 +9,27 @@ import csv
 
 
 def prioridad(practica):
-    if practica.__class__.__name__ == "Emergencias":
-        return 2
-    return 1  # Cirugía o Clínica
+    return 2 if practica.__class__.__name__ == "Emergencias" else 1
 
 
-def iniciar_colas(tiempo: int = 0, iteraciones: int = 0, desde: int = 0) -> None:
+def iniciar_colas(
+    tiempo: int = 0,
+    iteraciones: int = 0,
+    desde: int = 0,
+    media_llegada_cirugia: float = 60,
+    llegada_clinica_min: float = 600,
+    llegada_clinica_max: float = 840,
+    llegada_emergencia_min: float = 360,
+    llegada_emergencia_max: float = 600,
+    duracion_min: float = 60,
+    duracion_max: float = 120,
+    sanit_s_min: float = 1,
+    sanit_s_max: float = 3,
+    edo_const_1: float = 3,
+    edo_const_2: float = 0.05,
+    h: float = 0.1,
+    max_espera: int = 1
+):
     vector_estado = []
     t = 0
     box = Box()
@@ -23,104 +38,148 @@ def iniciar_colas(tiempo: int = 0, iteraciones: int = 0, desde: int = 0) -> None
     cola_espera = []
     eventos_futuros = []
 
-    # Iniciar primeras prácticas
-    cirugia = Cirugia.Cirugia()
-    clinica = Clinica.Clinica()
-    emergencia = Emergencias.Emergencias()
+    suma_espera_cirugia = suma_espera_clinica = suma_espera_emergencia = 0
+    cant_turnos_cirugia = cant_turnos_clinica = cant_turnos_emergencia = 0
 
-    eventos_futuros.append(Evento(tiempo=cirugia.llegada, tipo="llegada_cirugia", practica=cirugia))
-    eventos_futuros.append(Evento(tiempo=clinica.llegada, tipo="llegada_clinica", practica=clinica))
-    eventos_futuros.append(Evento(tiempo=emergencia.llegada, tipo="llegada_emergencia", practica=emergencia))
+    cirugia = Cirugia.Cirugia(media_llegada_cirugia, duracion_min, duracion_max)
+    clinica = Clinica.Clinica(llegada_clinica_min, llegada_clinica_max, duracion_min, duracion_max)
+    emergencia = Emergencias.Emergencias(llegada_emergencia_min, llegada_emergencia_max, duracion_min, duracion_max)
+
+    eventos_futuros += [
+        Evento(cirugia.llegada, "llegada_cirugia", cirugia),
+        Evento(clinica.llegada, "llegada_clinica", clinica),
+        Evento(emergencia.llegada, "llegada_emergencia", emergencia)
+    ]
     eventos_futuros.sort()
 
-    print("\n📅 INICIO DE LA SIMULACIÓN")
     for i in range(iteraciones):
         if not eventos_futuros:
-            print("✅ No hay más eventos futuros. Fin de simulación.")
             break
 
         evento = eventos_futuros.pop(0)
         t = evento.tiempo
-
-        print(f"\n================ Iteración {i + 1} ================")
-        print(f"🕒 Tiempo actual: {t:.2f} minutos")
-        print(f"📌 Evento procesado: {evento.tipo}")
         esta = box.estado()
-        print(f"📦 Estado del box: {esta}")
-        print(f"🎫 Cantidad en cola: {len(cola_espera)}")
+        if t > tiempo:
+            break
+        random_duracion = None
+        duracion_en_box = None
+        random_sanit = None
+        sanit_s = None
+        tiempo_sanit = None
 
-        random_duracion = None  # por defecto no hay random para duración
+        # inicializar campos por defecto
+        c_rnd, c_dur, c_lleg = "", "", ""
+        cl_rnd, cl_dur, cl_lleg = "", "", ""
+        e_rnd, e_dur, e_lleg = "", "", ""
 
         if evento.tipo.startswith("llegada"):
             practica = evento.practica
-            nombre = practica.__class__.__name__
-
-            print(f"🧍‍♂️ Llega una práctica de tipo: {nombre}")
+            nombre = practica.__class__.__name__.lower()
 
             if box.libre:
-                print(f"✅ Box libre → comienza la práctica de {nombre}")
                 box.set_ocupado()
-                #practica.duracion()
-                random_duracion = round(practica.random_num_duracion, 4)
-                print(f"   - Duración estimada: {practica.duracion_var:.2f} minutos")
-                fin_tipo = f"fin_{nombre.lower()}"
-                eventos_futuros.append(Evento(t + practica.duracion_var, tipo=fin_tipo, practica=practica))
-            else:
-                if len(cola_espera) < 5:
-                    print(f"⏳ Box ocupado → se encola {nombre}")
-                    cola_espera.append(practica)
-                else:
-                    print(f"❌ Se retira {nombre} por exceso de espera (cola llena)")
+                practica.duracion()
+                random_duracion = practica.random_num_duracion
+                duracion_en_box = practica.duracion_var
+                fin_tipo = f"fin_{nombre}"
+                eventos_futuros.append(Evento(t + duracion_en_box, fin_tipo, practica))
 
-            # Reprogramar próxima llegada
+                if isinstance(practica, Cirugia.Cirugia):
+                    cant_turnos_cirugia += 1
+                elif isinstance(practica, Clinica.Clinica):
+                    cant_turnos_clinica += 1
+                else:
+                    cant_turnos_emergencia += 1
+            else:
+                if len(cola_espera) < max_espera:
+                    cola_espera.append(practica)
+
             practica.frecuencia_llegada(t)
-            eventos_futuros.append(Evento(practica.llegada, tipo=evento.tipo, practica=practica))
-            print(f"   - Llegada futura programada: {practica.llegada:.2f} minutos")
+            eventos_futuros.append(Evento(practica.llegada, evento.tipo, practica))
+
+            if nombre == "cirugia":
+                c_rnd, c_dur, c_lleg = round(practica.random_num_frecuencia, 4), round(practica.duracion_var, 2), round(practica.llegada, 2)
+            elif nombre == "clinica":
+                cl_rnd, cl_dur, cl_lleg = round(practica.random_num_frecuencia, 4), round(practica.duracion_var, 2), round(practica.llegada, 2)
+            elif nombre == "emergencias":
+                e_rnd, e_dur, e_lleg = round(practica.random_num_frecuencia, 4), round(practica.duracion_var, 2), round(practica.llegada, 2)
 
         elif evento.tipo.startswith("fin_"):
-            nombre = evento.practica.__class__.__name__
-            print(f"🏁 Fin de práctica de {nombre}")
-            print("🧼 Iniciando sanitización del box...")
             box.set_sanitizando()
-            sanitario = Sanitario()
-            tiempo_sanit = sanitario.calcular_tiempo()
-            print(f"   - Tiempo estimado de sanitización: {tiempo_sanit:.2f} minutos")
-            eventos_futuros.append(Evento(t + tiempo_sanit, tipo="_fin_sanitizacion"))
+            sanitario = Sanitario(sanit_s_min, sanit_s_max, edo_const_1, edo_const_2, h)
+            random_sanit = rng.random()
+            sanit_s = 1 + random_sanit * (sanit_s_max - sanit_s_min)
+            tiempo_sanit = sanitario.runge_kutta(sanit_s)
+            eventos_futuros.append(Evento(t + tiempo_sanit, "_fin_sanitizacion"))
 
         elif evento.tipo == "_fin_sanitizacion":
-            print(f"🧽 Fin de sanitización")
             if cola_espera:
                 cola_espera.sort(key=lambda p: (prioridad(p), p.llegada))
                 proxima = cola_espera.pop(0)
-                nombre = proxima.__class__.__name__
-                #proxima.duracion()
-                random_duracion = round(proxima.random_num_duracion, 4)
-                print(f"🎉 Ingresa {nombre} desde la cola al box, con duración {proxima.duracion_var:.2f}")
                 box.set_ocupado()
-                fin_tipo = f"fin_{nombre.lower()}"
-                eventos_futuros.append(Evento(t + proxima.duracion_var, tipo=fin_tipo, practica=proxima))
+                proxima.duracion()
+                random_duracion = proxima.random_num_duracion
+                duracion_en_box = proxima.duracion_var
+                fin_tipo = f"fin_{proxima.__class__.__name__.lower()}"
+                eventos_futuros.append(Evento(t + duracion_en_box, fin_tipo, proxima))
+
+                espera = t - proxima.llegada
+                if isinstance(proxima, Cirugia.Cirugia):
+                    suma_espera_cirugia += espera
+                    cant_turnos_cirugia += 1
+                elif isinstance(proxima, Clinica.Clinica):
+                    suma_espera_clinica += espera
+                    cant_turnos_clinica += 1
+                else:
+                    suma_espera_emergencia += espera
+                    cant_turnos_emergencia += 1
             else:
-                print("✅ No hay prácticas esperando → box queda libre")
                 box.set_libre()
 
         eventos_futuros.sort()
-
-        registro = {
-            "iteracion": i + 1,
+        if t >= desde:
+            registro = {
             "tiempo": round(t, 2),
             "evento": evento.tipo,
-            "box_estado": esta,
-            "cola_espera": len(cola_espera),
-            "tipo_practica": evento.practica.__class__.__name__ if evento.practica else "—",
-            "tiempo_duracion": round(evento.practica.duracion_var, 2) if evento.practica else None,
-            "tiempo_llegada": round(evento.practica.llegada, 2) if evento.practica else None,
-            "random_duracion": random_duracion,
-            "random_llegada": round(evento.practica.random_num_frecuencia, 4) if evento.practica else None
-        }
 
-        vector_estado.append(registro)
+            "cirugia_rnd_llegada": c_rnd,
+            "cirugia_duracion": c_dur,
+            "cirugia_llegada": c_lleg,
 
-    print("\n🏁 SIMULACIÓN FINALIZADA\n")
+            "clinica_rnd_llegada": cl_rnd,
+            "clinica_duracion": cl_dur,
+            "clinica_llegada": cl_lleg,
+
+            "emergencia_rnd_llegada": e_rnd,
+            "emergencia_duracion": e_dur,
+            "emergencia_llegada": e_lleg,
+
+            "box_rnd_duracion": round(random_duracion, 4) if random_duracion is not None else "",
+            "box_duracion": round(duracion_en_box, 2) if duracion_en_box else "",
+            "box_fin": round(t + duracion_en_box, 2) if duracion_en_box else "",
+
+            "sanit_rnd": round(random_sanit, 4) if random_sanit else "",
+            "sanit_s": round(sanit_s, 2) if sanit_s else "",
+            "sanit_duracion": round(tiempo_sanit, 2) if tiempo_sanit else "",
+            "sanit_fin": round(t + tiempo_sanit, 2) if tiempo_sanit else "",
+
+            "estado_box": esta,
+            "cola_normal": len([p for p in cola_espera if prioridad(p) == 1]),
+            "cola_prioritaria": len([p for p in cola_espera if prioridad(p) == 2]),
+
+            "espera_cirugia": round(suma_espera_cirugia, 2),
+            "espera_clinica": round(suma_espera_clinica, 2),
+            "espera_emergencia": round(suma_espera_emergencia, 2),
+
+            "turnos_cirugia": cant_turnos_cirugia,
+            "turnos_clinica": cant_turnos_clinica,
+            "turnos_emergencia": cant_turnos_emergencia,
+
+            "eventos_futuros": ", ".join(f"{ev.tipo}@{round(ev.tiempo, 2)}" for ev in eventos_futuros)
+            }
+
+            vector_estado.append(registro)
+
     with open("vector_estado.csv", mode="w", newline="", encoding="utf-8") as archivo:
         writer = csv.DictWriter(archivo, fieldnames=vector_estado[0].keys(), delimiter=';')
         writer.writeheader()
@@ -128,4 +187,4 @@ def iniciar_colas(tiempo: int = 0, iteraciones: int = 0, desde: int = 0) -> None
 
 
 if __name__ == "__main__":
-    iniciar_colas(tiempo=100000, iteraciones=10, desde=0)
+    iniciar_colas(tiempo=10000, iteraciones=100, desde=2000)

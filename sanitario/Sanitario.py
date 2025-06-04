@@ -1,26 +1,22 @@
 from main import rng
 
 class Sanitario:
+    
+    def __init__(self, s_min, s_max, a, b, h):
+        self.s_min = s_min
+        self.s_max = s_max
+        self.a = a  # valor que antes era 3
+        self.b = b  # valor que antes era 0.05
+        self.h = h
 
-    def calcular_tiempo(self) -> float:
-        """
-        Calcula el tiempo necesario para alcanzar un valor de S entre 1 y 3 
-        """
-        random_num = rng.uniform(0, 1)
-        s_objetivo = 1 + random_num * (3-1)  # S entre 1 y 3
-        return self.runge_kutta(s_objetivo)
         
-        
-    def runge_kutta(self, S_objetivo, h=0.1) -> float:
-        """
-        Integra dS/dt = 3t + 0.05 * S^2 desde S=0 hasta alcanzar S_objetivo.
-        Devuelve el valor de t * 10 cuando se alcanza o supera S_objetivo.
-        """
+    def runge_kutta(self, S_objetivo):
         def f(t, s):
-            return 3 * t + 0.05 * s**2
+            return self.a * t + self.b * s**2
 
         t = 0
         s = 0
+        h = self.h
 
         while s < S_objetivo:
             k1 = h * f(t, s)
@@ -30,4 +26,4 @@ class Sanitario:
             s += (k1 + 2 * k2 + 2 * k3 + k4) / 6
             t += h
 
-        return round(t * 10, 2)
+        return t * 10

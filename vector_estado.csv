@@ -1,11 +1,28 @@
-iteracion;tiempo;evento;box_estado;cola_espera;tipo_practica;tiempo_duracion;tiempo_llegada;random_duracion;random_llegada
-1;323.35;llegada_cirugia;Libre;0;Cirugia;80.2;824.19;0.0102;0.566
-2;403.55;fin_cirugia;Ocupado;0;Cirugia;80.2;824.19;;0.566
-3;413.55;_fin_sanitizacion;Sanitizando;0;—;;;;
-4;448.42;llegada_emergencia;Libre;0;Emergencias;81.62;838.24;0.1937;0.1243
-5;530.04;fin_emergencias;Ocupado;0;Emergencias;81.62;838.24;;0.1243
-6;542.04;_fin_sanitizacion;Sanitizando;0;—;;;;
-7;798.05;llegada_clinica;Libre;0;Clinica;71.95;1532.95;0.2986;0.5621
-8;824.19;llegada_cirugia;Ocupado;1;Cirugia;80.2;939.13;;0.1743
-9;838.24;llegada_emergencia;Ocupado;2;Emergencias;81.62;1331.02;;0.5532
-10;870.0;fin_clinica;Ocupado;2;Clinica;71.95;1532.95;;0.5621
+tiempo;evento;cirugia_rnd_llegada;cirugia_duracion;cirugia_llegada;clinica_rnd_llegada;clinica_duracion;clinica_llegada;emergencia_rnd_llegada;emergencia_duracion;emergencia_llegada;box_rnd_duracion;box_duracion;box_fin;sanit_rnd;sanit_s;sanit_duracion;sanit_fin;estado_box;cola_normal;cola_prioritaria;espera_cirugia;espera_clinica;espera_emergencia;turnos_cirugia;turnos_clinica;turnos_emergencia;eventos_futuros
+2010.25;llegada_cirugia;0.6986;117.15;2082.2;;;;;;;;;;;;;;Ocupado;0;1;-750.64;-767.13;0;16;1;1;fin_cirugia@2016.92, llegada_cirugia@2082.2, llegada_emergencia@2320.86, llegada_clinica@2372.37
+2016.92;fin_cirugia;;;;;;;;;;;;;0.5566;2.11;12.0;2028.92;Ocupado;0;1;-750.64;-767.13;0;16;1;1;_fin_sanitizacion@2028.92, llegada_cirugia@2082.2, llegada_emergencia@2320.86, llegada_clinica@2372.37
+2028.92;_fin_sanitizacion;;;;;;;;;;0.08;64.8;2093.72;;;;;Sanitizando;0;0;-750.64;-767.13;-291.95;16;1;2;llegada_cirugia@2082.2, fin_emergencias@2093.72, llegada_emergencia@2320.86, llegada_clinica@2372.37
+2082.2;llegada_cirugia;0.165;117.15;2093.02;;;;;;;;;;;;;;Ocupado;1;0;-750.64;-767.13;-291.95;16;1;2;llegada_cirugia@2093.02, fin_emergencias@2093.72, llegada_emergencia@2320.86, llegada_clinica@2372.37
+2093.02;llegada_cirugia;0.9673;117.15;2298.21;;;;;;;;;;;;;;Ocupado;1;0;-750.64;-767.13;-291.95;16;1;2;fin_emergencias@2093.72, llegada_cirugia@2298.21, llegada_emergencia@2320.86, llegada_clinica@2372.37
+2093.72;fin_emergencias;;;;;;;;;;;;;0.2306;1.46;10.0;2103.72;Ocupado;1;0;-750.64;-767.13;-291.95;16;1;2;_fin_sanitizacion@2103.72, llegada_cirugia@2298.21, llegada_emergencia@2320.86, llegada_clinica@2372.37
+2103.72;_fin_sanitizacion;;;;;;;;;;0.1635;69.81;2173.53;;;;;Sanitizando;0;0;-945.12;-767.13;-291.95;17;1;2;fin_cirugia@2173.53, llegada_cirugia@2298.21, llegada_emergencia@2320.86, llegada_clinica@2372.37
+2173.53;fin_cirugia;;;;;;;;;;;;;0.2883;1.58;11.0;2184.53;Ocupado;0;0;-945.12;-767.13;-291.95;17;1;2;_fin_sanitizacion@2184.53, llegada_cirugia@2298.21, llegada_emergencia@2320.86, llegada_clinica@2372.37
+2184.53;_fin_sanitizacion;;;;;;;;;;;;;;;;;Sanitizando;0;0;-945.12;-767.13;-291.95;17;1;2;llegada_cirugia@2298.21, llegada_emergencia@2320.86, llegada_clinica@2372.37
+2298.21;llegada_cirugia;0.5196;92.23;2342.2;;;;;;;0.5371;92.23;2390.43;;;;;Libre;0;0;-945.12;-767.13;-291.95;18;1;2;llegada_emergencia@2320.86, llegada_cirugia@2342.2, llegada_clinica@2372.37, fin_cirugia@2390.43
+2320.86;llegada_emergencia;;;;;;;0.0033;64.8;2681.66;;;;;;;;Ocupado;0;1;-945.12;-767.13;-291.95;18;1;2;llegada_cirugia@2342.2, llegada_clinica@2372.37, fin_cirugia@2390.43, llegada_emergencia@2681.66
+2342.2;llegada_cirugia;0.0032;92.23;2342.39;;;;;;;;;;;;;;Ocupado;0;1;-945.12;-767.13;-291.95;18;1;2;llegada_cirugia@2342.39, llegada_clinica@2372.37, fin_cirugia@2390.43, llegada_emergencia@2681.66
+2342.39;llegada_cirugia;0.4961;92.23;2383.51;;;;;;;;;;;;;;Ocupado;0;1;-945.12;-767.13;-291.95;18;1;2;llegada_clinica@2372.37, llegada_cirugia@2383.51, fin_cirugia@2390.43, llegada_emergencia@2681.66
+2372.37;llegada_clinica;;;;0.1849;84.87;3016.73;;;;;;;;;;;Ocupado;0;1;-945.12;-767.13;-291.95;18;1;2;llegada_cirugia@2383.51, fin_cirugia@2390.43, llegada_emergencia@2681.66, llegada_clinica@3016.73
+2383.51;llegada_cirugia;0.6075;92.23;2439.62;;;;;;;;;;;;;;Ocupado;0;1;-945.12;-767.13;-291.95;18;1;2;fin_cirugia@2390.43, llegada_cirugia@2439.62, llegada_emergencia@2681.66, llegada_clinica@3016.73
+2390.43;fin_cirugia;;;;;;;;;;;;;0.7985;2.6;13.0;2403.43;Ocupado;0;1;-945.12;-767.13;-291.95;18;1;2;_fin_sanitizacion@2403.43, llegada_cirugia@2439.62, llegada_emergencia@2681.66, llegada_clinica@3016.73
+2403.43;_fin_sanitizacion;;;;;;;;;;0.0959;65.75;2469.19;;;;;Sanitizando;0;0;-945.12;-767.13;-570.18;18;1;3;llegada_cirugia@2439.62, fin_emergencias@2469.19, llegada_emergencia@2681.66, llegada_clinica@3016.73
+2439.62;llegada_cirugia;0.5052;92.23;2481.83;;;;;;;;;;;;;;Ocupado;1;0;-945.12;-767.13;-570.18;18;1;3;fin_emergencias@2469.19, llegada_cirugia@2481.83, llegada_emergencia@2681.66, llegada_clinica@3016.73
+2469.19;fin_emergencias;;;;;;;;;;;;;0.4061;1.81;11.0;2480.19;Ocupado;1;0;-945.12;-767.13;-570.18;18;1;3;_fin_sanitizacion@2480.19, llegada_cirugia@2481.83, llegada_emergencia@2681.66, llegada_clinica@3016.73
+2480.19;_fin_sanitizacion;;;;;;;;;;0.7905;107.43;2587.61;;;;;Sanitizando;0;0;-946.77;-767.13;-570.18;19;1;3;llegada_cirugia@2481.83, fin_cirugia@2587.61, llegada_emergencia@2681.66, llegada_clinica@3016.73
+2481.83;llegada_cirugia;0.9548;107.43;2667.62;;;;;;;;;;;;;;Ocupado;1;0;-946.77;-767.13;-570.18;19;1;3;fin_cirugia@2587.61, llegada_cirugia@2667.62, llegada_emergencia@2681.66, llegada_clinica@3016.73
+2587.61;fin_cirugia;;;;;;;;;;;;;0.4167;1.83;11.0;2598.61;Ocupado;1;0;-946.77;-767.13;-570.18;19;1;3;_fin_sanitizacion@2598.61, llegada_cirugia@2667.62, llegada_emergencia@2681.66, llegada_clinica@3016.73
+2598.61;_fin_sanitizacion;;;;;;;;;;0.2433;74.6;2673.21;;;;;Sanitizando;0;0;-1015.78;-767.13;-570.18;20;1;3;llegada_cirugia@2667.62, fin_cirugia@2673.21, llegada_emergencia@2681.66, llegada_clinica@3016.73
+2667.62;llegada_cirugia;0.8785;74.6;2794.08;;;;;;;;;;;;;;Ocupado;1;0;-1015.78;-767.13;-570.18;20;1;3;fin_cirugia@2673.21, llegada_emergencia@2681.66, llegada_cirugia@2794.08, llegada_clinica@3016.73
+2673.21;fin_cirugia;;;;;;;;;;;;;0.0273;1.05;9.0;2682.21;Ocupado;1;0;-1015.78;-767.13;-570.18;20;1;3;llegada_emergencia@2681.66, _fin_sanitizacion@2682.21, llegada_cirugia@2794.08, llegada_clinica@3016.73
+2681.66;llegada_emergencia;;;;;;;0.3305;65.75;3120.98;;;;;;;;Sanitizando;1;0;-1015.78;-767.13;-570.18;20;1;3;_fin_sanitizacion@2682.21, llegada_cirugia@2794.08, llegada_clinica@3016.73, llegada_emergencia@3120.98
+2682.21;_fin_sanitizacion;;;;;;;;;;0.3948;83.69;2765.89;;;;;Sanitizando;0;0;-1127.65;-767.13;-570.18;21;1;3;fin_cirugia@2765.89, llegada_cirugia@2794.08, llegada_clinica@3016.73, llegada_emergencia@3120.98
