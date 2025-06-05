@@ -21,8 +21,12 @@ def iniciar_colas(
     llegada_clinica_max,
     llegada_emergencia_min,
     llegada_emergencia_max,
-    duracion_min,
-    duracion_max,
+    duracion_min_cir,
+    duracion_max_cir,
+    duracion_min_cli,
+    duracion_max_cli,
+    duracion_min_em,
+    duracion_max_em,
     sanit_s_min,
     sanit_s_max,
     edo_const_1,
@@ -43,9 +47,9 @@ def iniciar_colas(
 
     tiempo_total_sanit = 0
 
-    cirugia = Cirugia.Cirugia(media_llegada_cirugia, duracion_min, duracion_max)
-    clinica = Clinica.Clinica(llegada_clinica_min, llegada_clinica_max, duracion_min, duracion_max)
-    emergencia = Emergencias.Emergencias(llegada_emergencia_min, llegada_emergencia_max, duracion_min, duracion_max)
+    cirugia = Cirugia.Cirugia(media_llegada_cirugia, duracion_min_cir, duracion_max_cir)
+    clinica = Clinica.Clinica(llegada_clinica_min, llegada_clinica_max, duracion_min_cli, duracion_max_cli)
+    emergencia = Emergencias.Emergencias(llegada_emergencia_min, llegada_emergencia_max, duracion_min_em, duracion_max_em)
 
     eventos_futuros += [
         Evento(cirugia.llegada, "llegada_cirugia", cirugia),
@@ -166,7 +170,7 @@ def iniciar_colas(
                 "sanit_duracion": round(tiempo_sanit, 2) if tiempo_sanit else "",
                 "sanit_fin": round(t + tiempo_sanit, 2) if tiempo_sanit else "",
 
-                "estado_box": esta,
+                "estado_box": box.estado(),
                 "cola_normal": len([p for p in cola_espera if prioridad(p[0]) == 1]),
                 "cola_prioritaria": len([p for p in cola_espera if prioridad(p[0]) == 2]),
 

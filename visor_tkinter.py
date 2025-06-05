@@ -10,6 +10,9 @@ from sanitario.Sanitario import Sanitario
 def abrir_interfaz():
     def ejecutar_simulacion():
         try:
+            print(ent_iteraciones)
+            print(ent_duracion_min_cir, ent_duracion_max_cir, ent_duracion_min_cli, ent_duracion_max_cli,
+                  ent_duracion_min_em,ent_duracion_max_em)
             iniciar_colas(
                 tiempo=int(ent_tiempo.get()),
                 iteraciones=int(ent_iteraciones.get()),
@@ -19,8 +22,12 @@ def abrir_interfaz():
                 llegada_clinica_max=float(ent_clinica_max.get()),
                 llegada_emergencia_min=float(ent_emergencia_min.get()),
                 llegada_emergencia_max=float(ent_emergencia_max.get()),
-                duracion_min=float(ent_duracion_min.get()),
-                duracion_max=float(ent_duracion_max.get()),
+                duracion_min_cir=float(ent_duracion_min_cir.get()),
+                duracion_max_cir=float(ent_duracion_max_cir.get()),
+                duracion_min_cli=float(ent_duracion_min_cli.get()),
+                duracion_max_cli=float(ent_duracion_max_cli.get()),
+                duracion_min_em=float(ent_duracion_min_em.get()),
+                duracion_max_em=float(ent_duracion_max_em.get()),
                 sanit_s_min=float(ent_sanit_s_min.get()),
                 sanit_s_max=float(ent_sanit_s_max.get()),
                 edo_const_1=float(ent_const_1.get()),
@@ -43,8 +50,9 @@ def abrir_interfaz():
             container.pack(fill="both", expand=True)
 
             canvas = tk.Canvas(container)
-            scrollbar_y = ttk.Scrollbar(container, orient="vertical", command=canvas.yview)
             scrollbar_x = ttk.Scrollbar(container, orient="horizontal", command=canvas.xview)
+            scrollbar_y = ttk.Scrollbar(container, orient="vertical", command=canvas.yview)
+
 
             scrollable_frame = ttk.Frame(canvas)
             scrollable_frame.bind(
@@ -132,8 +140,12 @@ def abrir_interfaz():
         ("Llegada clínica max", "840"),
         ("Llegada emergencia min", "360"),
         ("Llegada emergencia max", "600"),
-        ("Duración min", "60"),
-        ("Duración max", "120"),
+        ("Duración mínima Cirugía", "80"),
+        ("Duración máxima Cirugía", "100"),
+        ("Duración mínima Clínica médica", "60"),
+        ("Duración máxima Clínica médica", "100"),
+        ("Duración mínima Emergencias", "70"),
+        ("Duración máxima Emergencias", "130"),
         ("Sanit S min", "1"),
         ("Sanit S max", "3"),
         ("Constante 1 EDO (a)", "3"),
@@ -160,8 +172,12 @@ def abrir_interfaz():
         ent_clinica_max,
         ent_emergencia_min,
         ent_emergencia_max,
-        ent_duracion_min,
-        ent_duracion_max,
+        ent_duracion_min_cir,
+        ent_duracion_max_cir,
+        ent_duracion_min_cli,
+        ent_duracion_max_cli,
+        ent_duracion_min_em,
+        ent_duracion_max_em,
         ent_sanit_s_min,
         ent_sanit_s_max,
         ent_const_1,
