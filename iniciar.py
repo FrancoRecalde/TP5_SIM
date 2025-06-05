@@ -21,8 +21,12 @@ def iniciar_colas(
     llegada_clinica_max,
     llegada_emergencia_min,
     llegada_emergencia_max,
-    duracion_min,
-    duracion_max,
+    duracion_min_cir,
+    duracion_max_cir,
+    duracion_min_cli,
+    duracion_max_cli,
+    duracion_min_em,
+    duracion_max_em,
     sanit_s_min,
     sanit_s_max,
     edo_const_1,
@@ -43,9 +47,9 @@ def iniciar_colas(
 
     tiempo_total_sanit = 0
 
-    cirugia = Cirugia.Cirugia(media_llegada_cirugia, duracion_min, duracion_max)
-    clinica = Clinica.Clinica(llegada_clinica_min, llegada_clinica_max, duracion_min, duracion_max)
-    emergencia = Emergencias.Emergencias(llegada_emergencia_min, llegada_emergencia_max, duracion_min, duracion_max)
+    cirugia = Cirugia.Cirugia(media_llegada_cirugia, duracion_min_cir, duracion_max_cir)
+    clinica = Clinica.Clinica(llegada_clinica_min, llegada_clinica_max, duracion_min_cli, duracion_max_cli)
+    emergencia = Emergencias.Emergencias(llegada_emergencia_min, llegada_emergencia_max, duracion_min_em, duracion_max_em)
 
     eventos_futuros += [
         Evento(cirugia.llegada, "llegada_cirugia", cirugia),
@@ -55,7 +59,7 @@ def iniciar_colas(
     eventos_futuros.sort()
 
     for i in range(iteraciones):
-        
+
         if not eventos_futuros:
             break
 
@@ -73,6 +77,8 @@ def iniciar_colas(
         c_rnd, c_dur, c_lleg = "", "", ""
         cl_rnd, cl_dur, cl_lleg = "", "", ""
         e_rnd, e_dur, e_lleg = "", "", ""
+
+        rechazada = False
 
         if evento.tipo.startswith("llegada"):
             practica = evento.practica
@@ -94,7 +100,9 @@ def iniciar_colas(
                     cant_turnos_emergencia += 1
             else:
                 if len(cola_espera) < max_espera:
-                    cola_espera.append((practica, t))  # t es el momento de llegada a la cola
+                    cola_espera.append((practica, t))
+                else:
+                    rechazada = True
 
             practica.frecuencia_llegada(t)
             eventos_futuros.append(Evento(practica.llegada, evento.tipo, practica))
@@ -126,7 +134,7 @@ def iniciar_colas(
                 fin_tipo = f"fin_{proxima.__class__.__name__.lower()}"
                 eventos_futuros.append(Evento(t + duracion_en_box, fin_tipo, proxima))
 
-                espera = t - llegada_cola  # espera real desde que llegó a la cola
+                espera = t - llegada_cola
                 if isinstance(proxima, Cirugia.Cirugia):
                     suma_espera_cirugia += espera
                     cant_turnos_cirugia += 1
@@ -166,7 +174,7 @@ def iniciar_colas(
                 "sanit_duracion": round(tiempo_sanit, 2) if tiempo_sanit else "",
                 "sanit_fin": round(t + tiempo_sanit, 2) if tiempo_sanit else "",
 
-                "estado_box": esta,
+                "estado_box": box.estado(),
                 "cola_normal": len([p for p in cola_espera if prioridad(p[0]) == 1]),
                 "cola_prioritaria": len([p for p in cola_espera if prioridad(p[0]) == 2]),
 
@@ -184,6 +192,8 @@ def iniciar_colas(
 
                 "tasa_ocupacion_sanit": round((tiempo_total_sanit / t) * 100, 2) if t else 0,
 
+                "rechazada": rechazada,
+
                 "eventos_futuros": ", ".join(f"{ev.tipo}@{round(ev.tiempo, 2)}" for ev in eventos_futuros)
             }
 
@@ -193,5 +203,3 @@ def iniciar_colas(
         writer = csv.DictWriter(archivo, fieldnames=vector_estado[0].keys(), delimiter=';')
         writer.writeheader()
         writer.writerows(vector_estado)
-
-
