@@ -53,6 +53,9 @@ def iniciar_colas(
 
     eventos_futuros = [Evento(0, "inicio", None)]
 
+    last_c_lleg = ""
+    last_cl_lleg = ""
+    last_e_lleg = ""
 
     for i in range(iteraciones):
 
@@ -94,6 +97,10 @@ def iniciar_colas(
             c_rnd, c_dur, c_lleg = round(cirugia.random_num_frecuencia, 4), round(cirugia.llegada - t, 2), round(cirugia.llegada, 2)
             cl_rnd, cl_dur, cl_lleg = round(clinica.random_num_frecuencia, 4), round(clinica.llegada - t, 2), round(clinica.llegada, 2)
             e_rnd, e_dur, e_lleg = round(emergencia.random_num_frecuencia, 4), round(emergencia.llegada - t, 2), round(emergencia.llegada, 2)
+
+            last_c_lleg = c_lleg
+            last_cl_lleg = cl_lleg
+            last_e_lleg = e_lleg
 
             if t >= desde:
                 registro = {
@@ -176,10 +183,13 @@ def iniciar_colas(
 
             if nombre == "cirugia":
                 c_rnd, c_dur, c_lleg = round(practica.random_num_frecuencia, 4), round(practica.llegada - t, 2), round(practica.llegada, 2)
+                last_c_lleg = c_lleg
             elif nombre == "clinica":
                 cl_rnd, cl_dur, cl_lleg = round(practica.random_num_frecuencia, 4), round(practica.llegada - t, 2), round(practica.llegada, 2)
+                last_cl_lleg = cl_lleg
             elif nombre == "emergencias":
                 e_rnd, e_dur, e_lleg = round(practica.random_num_frecuencia, 4), round(practica.llegada - t, 2), round(practica.llegada, 2)
+                last_e_lleg = e_lleg
 
         elif evento.tipo.startswith("fin_"):
             box.set_sanitizando()
@@ -222,15 +232,15 @@ def iniciar_colas(
 
                 "cirugia_rnd_llegada": c_rnd,
                 "cirugia_duracion": c_dur,
-                "cirugia_llegada": c_lleg,
+                "cirugia_llegada": last_c_lleg,
 
                 "clinica_rnd_llegada": cl_rnd,
                 "clinica_duracion": cl_dur,
-                "clinica_llegada": cl_lleg,
+                "clinica_llegada": last_cl_lleg,
 
                 "emergencia_rnd_llegada": e_rnd,
                 "emergencia_duracion": e_dur,
-                "emergencia_llegada": e_lleg,
+                "emergencia_llegada": last_e_lleg,
 
                 "box_rnd_duracion": round(random_duracion, 4) if random_duracion is not None else "",
                 "box_duracion": round(duracion_en_box, 2) if duracion_en_box else "",
