@@ -51,12 +51,8 @@ def iniciar_colas(
     clinica = Clinica.Clinica(llegada_clinica_min, llegada_clinica_max, duracion_min_cli, duracion_max_cli)
     emergencia = Emergencias.Emergencias(llegada_emergencia_min, llegada_emergencia_max, duracion_min_em, duracion_max_em)
 
-    eventos_futuros += [
-        Evento(cirugia.llegada, "llegada_cirugia", cirugia),
-        Evento(clinica.llegada, "llegada_clinica", clinica),
-        Evento(emergencia.llegada, "llegada_emergencia", emergencia)
-    ]
-    eventos_futuros.sort()
+    eventos_futuros = [Evento(0, "inicio", None)]
+
 
     for i in range(iteraciones):
 
@@ -80,6 +76,77 @@ def iniciar_colas(
 
         rechazada = False
 
+        if evento.tipo == "inicio":
+            cirugia.frecuencia_llegada(0)
+            cirugia.duracion()
+            clinica.frecuencia_llegada(0)
+            clinica.duracion()
+            emergencia.frecuencia_llegada(0)
+            emergencia.duracion()
+
+            eventos_futuros += [
+                Evento(cirugia.llegada, "llegada_cirugia", cirugia),
+                Evento(clinica.llegada, "llegada_clinica", clinica),
+                Evento(emergencia.llegada, "llegada_emergencia", emergencia)
+            ]
+            eventos_futuros.sort()
+
+            c_rnd, c_dur, c_lleg = round(cirugia.random_num_frecuencia, 4), round(cirugia.llegada - t, 2), round(cirugia.llegada, 2)
+            cl_rnd, cl_dur, cl_lleg = round(clinica.random_num_frecuencia, 4), round(clinica.llegada - t, 2), round(clinica.llegada, 2)
+            e_rnd, e_dur, e_lleg = round(emergencia.random_num_frecuencia, 4), round(emergencia.llegada - t, 2), round(emergencia.llegada, 2)
+
+            if t >= desde:
+                registro = {
+                    "tiempo": 0,
+                    "evento": "inicio",
+
+                    "cirugia_rnd_llegada": c_rnd,
+                    "cirugia_duracion": c_dur,
+                    "cirugia_llegada": c_lleg,
+
+                    "clinica_rnd_llegada": cl_rnd,
+                    "clinica_duracion": cl_dur,
+                    "clinica_llegada": cl_lleg,
+
+                    "emergencia_rnd_llegada": e_rnd,
+                    "emergencia_duracion": e_dur,
+                    "emergencia_llegada": e_lleg,
+
+                    "box_rnd_duracion": "",
+                    "box_duracion": "",
+                    "box_fin": "",
+
+                    "sanit_rnd": "",
+                    "sanit_s": "",
+                    "sanit_duracion": "",
+                    "sanit_fin": "",
+
+                    "estado_box": box.estado(),
+                    "cola_normal": 0,
+                    "cola_prioritaria": 0,
+
+                    "espera_cirugia": 0,
+                    "espera_clinica": 0,
+                    "espera_emergencia": 0,
+
+                    "turnos_cirugia": 0,
+                    "turnos_clinica": 0,
+                    "turnos_emergencia": 0,
+
+                    "prom_espera_cirugia": 0,
+                    "prom_espera_clinica": 0,
+                    "prom_espera_emergencia": 0,
+
+                    "tasa_ocupacion_sanit": 0,
+
+                    "rechazada": False,
+
+                    "eventos_futuros": ", ".join(f"{ev.tipo}@{round(ev.tiempo, 2)}" for ev in eventos_futuros)
+                }
+
+                vector_estado.append(registro)
+            continue
+        
         if evento.tipo.startswith("llegada"):
             practica = evento.practica
             nombre = practica.__class__.__name__.lower()
@@ -108,11 +175,11 @@ def iniciar_colas(
             eventos_futuros.append(Evento(practica.llegada, evento.tipo, practica))
 
             if nombre == "cirugia":
-                c_rnd, c_dur, c_lleg = round(practica.random_num_frecuencia, 4), round(practica.duracion_var, 2), round(practica.llegada, 2)
+                c_rnd, c_dur, c_lleg = round(practica.random_num_frecuencia, 4), round(practica.llegada - t, 2), round(practica.llegada, 2)
             elif nombre == "clinica":
-                cl_rnd, cl_dur, cl_lleg = round(practica.random_num_frecuencia, 4), round(practica.duracion_var, 2), round(practica.llegada, 2)
+                cl_rnd, cl_dur, cl_lleg = round(practica.random_num_frecuencia, 4), round(practica.llegada - t, 2), round(practica.llegada, 2)
             elif nombre == "emergencias":
-                e_rnd, e_dur, e_lleg = round(practica.random_num_frecuencia, 4), round(practica.duracion_var, 2), round(practica.llegada, 2)
+                e_rnd, e_dur, e_lleg = round(practica.random_num_frecuencia, 4), round(practica.llegada - t, 2), round(practica.llegada, 2)
 
         elif evento.tipo.startswith("fin_"):
             box.set_sanitizando()
