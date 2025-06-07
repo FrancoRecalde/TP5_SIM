@@ -1,101 +1,101 @@
-tiempo;evento;cirugia_rnd_llegada;cirugia_duracion;cirugia_llegada;clinica_rnd_llegada;clinica_duracion;clinica_llegada;emergencia_rnd_llegada;emergencia_duracion;emergencia_llegada;box_rnd_duracion;box_duracion;box_fin;sanit_rnd;sanit_s;sanit_duracion;sanit_fin;estado_box;cola_normal;cola_prioritaria;espera_cirugia;espera_clinica;espera_emergencia;turnos_cirugia;turnos_clinica;turnos_emergencia;prom_espera_cirugia;prom_espera_clinica;prom_espera_emergencia;tasa_ocupacion_sanit;rechazada;eventos_futuros
-511.68;llegada_emergencia;;;;;;;0.3215;115.44;948.84;0.7574;115.44;627.12;;;;;Ocupado;0;0;0;0;0;0;0;1;0;0;0.0;0.0;False;llegada_cirugia@551.56, fin_emergencias@627.12, llegada_clinica@711.13, llegada_emergencia@948.84
-551.56;llegada_cirugia;0.3372;67.65;798.36;;;;;;;;;;;;;;Ocupado;1;0;0;0;0;0;0;1;0;0;0.0;0.0;False;fin_emergencias@627.12, llegada_clinica@711.13, llegada_cirugia@798.36, llegada_emergencia@948.84
-627.12;fin_emergencias;;;;;;;;;;;;;0.7586;2.52;13.0;640.12;Sanitizando;1;0;0;0;0;0;0;1;0;0;0.0;2.07;False;_fin_sanitizacion@640.12, llegada_clinica@711.13, llegada_cirugia@798.36, llegada_emergencia@948.84
-640.12;_fin_sanitizacion;;;;;;;;;;0.6285;97.71;737.83;;;;;Ocupado;0;0;88.56;0;0;1;0;1;88.56;0;0.0;2.03;False;llegada_clinica@711.13, fin_cirugia@737.83, llegada_cirugia@798.36, llegada_emergencia@948.84
-711.13;llegada_clinica;;;;0.0096;89.12;1313.42;;;;;;;;;;;Ocupado;1;0;88.56;0;0;1;0;1;88.56;0;0.0;1.83;False;fin_cirugia@737.83, llegada_cirugia@798.36, llegada_emergencia@948.84, llegada_clinica@1313.42
-737.83;fin_cirugia;;;;;;;;;;;;;0.7802;2.56;13.0;750.83;Sanitizando;1;0;88.56;0;0;1;0;1;88.56;0;0.0;3.52;False;_fin_sanitizacion@750.83, llegada_cirugia@798.36, llegada_emergencia@948.84, llegada_clinica@1313.42
-750.83;_fin_sanitizacion;;;;;;;;;;0.583;94.98;845.81;;;;;Ocupado;0;0;88.56;39.71;0;1;1;1;88.56;39.71;0.0;3.46;False;llegada_cirugia@798.36, fin_clinica@845.81, llegada_emergencia@948.84, llegada_clinica@1313.42
-798.36;llegada_cirugia;0.9151;97.71;2277.84;;;;;;;;;;;;;;Ocupado;1;0;88.56;39.71;0;1;1;1;88.56;39.71;0.0;3.26;False;fin_clinica@845.81, llegada_emergencia@948.84, llegada_clinica@1313.42, llegada_cirugia@2277.84
-845.81;fin_clinica;;;;;;;;;;;;;0.7411;2.48;13.0;858.81;Sanitizando;1;0;88.56;39.71;0;1;1;1;88.56;39.71;0.0;4.61;False;_fin_sanitizacion@858.81, llegada_emergencia@948.84, llegada_clinica@1313.42, llegada_cirugia@2277.84
-858.81;_fin_sanitizacion;;;;;;;;;;0.789;107.34;966.16;;;;;Ocupado;0;0;149.02;39.71;0;2;1;1;74.51;39.71;0.0;4.54;False;llegada_emergencia@948.84, fin_cirugia@966.16, llegada_clinica@1313.42, llegada_cirugia@2277.84
-948.84;llegada_emergencia;;;;;;;0.8471;115.44;1512.13;;;;;;;;Ocupado;0;1;149.02;39.71;0;2;1;1;74.51;39.71;0.0;4.11;False;fin_cirugia@966.16, llegada_clinica@1313.42, llegada_emergencia@1512.13, llegada_cirugia@2277.84
-966.16;fin_cirugia;;;;;;;;;;;;;0.0518;1.1;9.0;975.16;Sanitizando;0;1;149.02;39.71;0;2;1;1;74.51;39.71;0.0;4.97;False;_fin_sanitizacion@975.16, llegada_clinica@1313.42, llegada_emergencia@1512.13, llegada_cirugia@2277.84
-975.16;_fin_sanitizacion;;;;;;;;;;0.0689;74.13;1049.29;;;;;Ocupado;0;0;149.02;39.71;26.32;2;1;2;74.51;39.71;13.16;4.92;False;fin_emergencias@1049.29, llegada_clinica@1313.42, llegada_emergencia@1512.13, llegada_cirugia@2277.84
-1049.29;fin_emergencias;;;;;;;;;;;;;0.0155;1.03;9.0;1058.29;Sanitizando;0;0;149.02;39.71;26.32;2;1;2;74.51;39.71;13.16;5.43;False;_fin_sanitizacion@1058.29, llegada_clinica@1313.42, llegada_emergencia@1512.13, llegada_cirugia@2277.84
-1058.29;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;149.02;39.71;26.32;2;1;2;74.51;39.71;13.16;5.39;False;llegada_clinica@1313.42, llegada_emergencia@1512.13, llegada_cirugia@2277.84
-1313.42;llegada_clinica;;;;0.5987;72.97;2057.11;;;;0.2161;72.97;1386.39;;;;;Ocupado;0;0;149.02;39.71;26.32;2;2;2;74.51;19.85;13.16;4.34;False;fin_clinica@1386.39, llegada_emergencia@1512.13, llegada_clinica@2057.11, llegada_cirugia@2277.84
-1386.39;fin_clinica;;;;;;;;;;;;;0.6514;2.3;13.0;1399.39;Sanitizando;0;0;149.02;39.71;26.32;2;2;2;74.51;19.85;13.16;5.05;False;_fin_sanitizacion@1399.39, llegada_emergencia@1512.13, llegada_clinica@2057.11, llegada_cirugia@2277.84
-1399.39;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;149.02;39.71;26.32;2;2;2;74.51;19.85;13.16;5.0;False;llegada_emergencia@1512.13, llegada_clinica@2057.11, llegada_cirugia@2277.84
-1512.13;llegada_emergencia;;;;;;;0.4562;126.37;1981.61;0.9395;126.37;1638.5;;;;;Ocupado;0;0;149.02;39.71;26.32;2;2;3;74.51;19.85;8.77;4.63;False;fin_emergencias@1638.5, llegada_emergencia@1981.61, llegada_clinica@2057.11, llegada_cirugia@2277.84
-1638.5;fin_emergencias;;;;;;;;;;;;;0.8529;2.71;14.0;1652.5;Sanitizando;0;0;149.02;39.71;26.32;2;2;3;74.51;19.85;8.77;5.13;False;_fin_sanitizacion@1652.5, llegada_emergencia@1981.61, llegada_clinica@2057.11, llegada_cirugia@2277.84
-1652.5;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;149.02;39.71;26.32;2;2;3;74.51;19.85;8.77;5.08;False;llegada_emergencia@1981.61, llegada_clinica@2057.11, llegada_cirugia@2277.84
-1981.61;llegada_emergencia;;;;;;;0.3136;102.2;2416.86;0.5367;102.2;2083.81;;;;;Ocupado;0;0;149.02;39.71;26.32;2;2;4;74.51;19.85;6.58;4.24;False;llegada_clinica@2057.11, fin_emergencias@2083.81, llegada_cirugia@2277.84, llegada_emergencia@2416.86
-2057.11;llegada_clinica;;;;0.3007;72.97;2729.28;;;;;;;;;;;Ocupado;1;0;149.02;39.71;26.32;2;2;4;74.51;19.85;6.58;4.08;False;fin_emergencias@2083.81, llegada_cirugia@2277.84, llegada_emergencia@2416.86, llegada_clinica@2729.28
-2083.81;fin_emergencias;;;;;;;;;;;;;0.2148;1.43;10.0;2093.81;Sanitizando;1;0;149.02;39.71;26.32;2;2;4;74.51;19.85;6.58;4.51;False;_fin_sanitizacion@2093.81, llegada_cirugia@2277.84, llegada_emergencia@2416.86, llegada_clinica@2729.28
-2093.81;_fin_sanitizacion;;;;;;;;;;0.6491;98.95;2192.76;;;;;Ocupado;0;0;149.02;76.41;26.32;2;3;4;74.51;25.47;6.58;4.49;False;fin_clinica@2192.76, llegada_cirugia@2277.84, llegada_emergencia@2416.86, llegada_clinica@2729.28
-2192.76;fin_clinica;;;;;;;;;;;;;0.0018;1.0;9.0;2201.76;Sanitizando;0;0;149.02;76.41;26.32;2;3;4;74.51;25.47;6.58;4.7;False;_fin_sanitizacion@2201.76, llegada_cirugia@2277.84, llegada_emergencia@2416.86, llegada_clinica@2729.28
-2201.76;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;149.02;76.41;26.32;2;3;4;74.51;25.47;6.58;4.68;False;llegada_cirugia@2277.84, llegada_emergencia@2416.86, llegada_clinica@2729.28
-2277.84;llegada_cirugia;0.6449;87.15;2899.06;;;;;;;0.4525;87.15;2364.98;;;;;Ocupado;0;0;149.02;76.41;26.32;3;3;4;49.67;25.47;6.58;4.52;False;fin_cirugia@2364.98, llegada_emergencia@2416.86, llegada_clinica@2729.28, llegada_cirugia@2899.06
-2364.98;fin_cirugia;;;;;;;;;;;;;0.9067;2.81;14.0;2378.98;Sanitizando;0;0;149.02;76.41;26.32;3;3;4;49.67;25.47;6.58;4.95;False;_fin_sanitizacion@2378.98, llegada_emergencia@2416.86, llegada_clinica@2729.28, llegada_cirugia@2899.06
-2378.98;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;149.02;76.41;26.32;3;3;4;49.67;25.47;6.58;4.92;False;llegada_emergencia@2416.86, llegada_clinica@2729.28, llegada_cirugia@2899.06
-2416.86;llegada_emergencia;;;;;;;0.3851;123.01;2869.28;0.8835;123.01;2539.87;;;;;Ocupado;0;0;149.02;76.41;26.32;3;3;5;49.67;25.47;5.26;4.84;False;fin_emergencias@2539.87, llegada_clinica@2729.28, llegada_emergencia@2869.28, llegada_cirugia@2899.06
-2539.87;fin_emergencias;;;;;;;;;;;;;0.0561;1.11;9.0;2548.87;Sanitizando;0;0;149.02;76.41;26.32;3;3;5;49.67;25.47;5.26;4.96;False;_fin_sanitizacion@2548.87, llegada_clinica@2729.28, llegada_emergencia@2869.28, llegada_cirugia@2899.06
-2548.87;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;149.02;76.41;26.32;3;3;5;49.67;25.47;5.26;4.94;False;llegada_clinica@2729.28, llegada_emergencia@2869.28, llegada_cirugia@2899.06
-2729.28;llegada_clinica;;;;0.575;66.05;3467.28;;;;0.1008;66.05;2795.33;;;;;Ocupado;0;0;149.02;76.41;26.32;3;4;5;49.67;19.1;5.26;4.62;False;fin_clinica@2795.33, llegada_emergencia@2869.28, llegada_cirugia@2899.06, llegada_clinica@3467.28
-2795.33;fin_clinica;;;;;;;;;;;;;0.3036;1.61;11.0;2806.33;Sanitizando;0;0;149.02;76.41;26.32;3;4;5;49.67;19.1;5.26;4.9;False;_fin_sanitizacion@2806.33, llegada_emergencia@2869.28, llegada_cirugia@2899.06, llegada_clinica@3467.28
-2806.33;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;149.02;76.41;26.32;3;4;5;49.67;19.1;5.26;4.88;False;llegada_emergencia@2869.28, llegada_cirugia@2899.06, llegada_clinica@3467.28
-2869.28;llegada_emergencia;;;;;;;0.1653;85.02;3268.96;0.2503;85.02;2954.3;;;;;Ocupado;0;0;149.02;76.41;26.32;3;4;6;49.67;19.1;4.39;4.77;False;llegada_cirugia@2899.06, fin_emergencias@2954.3, llegada_emergencia@3268.96, llegada_clinica@3467.28
-2899.06;llegada_cirugia;0.346;87.15;3153.87;;;;;;;;;;;;;;Ocupado;1;0;149.02;76.41;26.32;3;4;6;49.67;19.1;4.39;4.73;False;fin_emergencias@2954.3, llegada_cirugia@3153.87, llegada_emergencia@3268.96, llegada_clinica@3467.28
-2954.3;fin_emergencias;;;;;;;;;;;;;0.4439;1.89;12.0;2966.3;Sanitizando;1;0;149.02;76.41;26.32;3;4;6;49.67;19.1;4.39;5.04;False;_fin_sanitizacion@2966.3, llegada_cirugia@3153.87, llegada_emergencia@3268.96, llegada_clinica@3467.28
-2966.3;_fin_sanitizacion;;;;;;;;;;0.2257;73.54;3039.84;;;;;Ocupado;0;0;216.25;76.41;26.32;4;4;6;54.06;19.1;4.39;5.02;False;fin_cirugia@3039.84, llegada_cirugia@3153.87, llegada_emergencia@3268.96, llegada_clinica@3467.28
-3039.84;fin_cirugia;;;;;;;;;;;;;0.9547;2.91;14.0;3053.84;Sanitizando;0;0;216.25;76.41;26.32;4;4;6;54.06;19.1;4.39;5.36;False;_fin_sanitizacion@3053.84, llegada_cirugia@3153.87, llegada_emergencia@3268.96, llegada_clinica@3467.28
-3053.84;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;216.25;76.41;26.32;4;4;6;54.06;19.1;4.39;5.34;False;llegada_cirugia@3153.87, llegada_emergencia@3268.96, llegada_clinica@3467.28
-3153.87;llegada_cirugia;0.9336;114.55;4780.87;;;;;;;0.9092;114.55;3268.43;;;;;Ocupado;0;0;216.25;76.41;26.32;5;4;6;43.25;19.1;4.39;5.17;False;fin_cirugia@3268.43, llegada_emergencia@3268.96, llegada_clinica@3467.28, llegada_cirugia@4780.87
-3268.43;fin_cirugia;;;;;;;;;;;;;0.8716;2.74;14.0;3282.43;Sanitizando;0;0;216.25;76.41;26.32;5;4;6;43.25;19.1;4.39;5.42;False;llegada_emergencia@3268.96, _fin_sanitizacion@3282.43, llegada_clinica@3467.28, llegada_cirugia@4780.87
-3268.96;llegada_emergencia;;;;;;;0.398;85.02;3724.49;;;;;;;;Sanitizando;0;1;216.25;76.41;26.32;5;4;6;43.25;19.1;4.39;5.41;False;_fin_sanitizacion@3282.43, llegada_clinica@3467.28, llegada_emergencia@3724.49, llegada_cirugia@4780.87
-3282.43;_fin_sanitizacion;;;;;;;;;;0.6716;110.3;3392.72;;;;;Ocupado;0;0;216.25;76.41;39.78;5;4;7;43.25;19.1;5.68;5.39;False;fin_emergencias@3392.72, llegada_clinica@3467.28, llegada_emergencia@3724.49, llegada_cirugia@4780.87
-3392.72;fin_emergencias;;;;;;;;;;;;;0.0488;1.1;9.0;3401.72;Sanitizando;0;0;216.25;76.41;39.78;5;4;7;43.25;19.1;5.68;5.48;False;_fin_sanitizacion@3401.72, llegada_clinica@3467.28, llegada_emergencia@3724.49, llegada_cirugia@4780.87
-3401.72;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;216.25;76.41;39.78;5;4;7;43.25;19.1;5.68;5.47;False;llegada_clinica@3467.28, llegada_emergencia@3724.49, llegada_cirugia@4780.87
-3467.28;llegada_clinica;;;;0.2107;118.75;4117.86;;;;0.9791;118.75;3586.03;;;;;Ocupado;0;0;216.25;76.41;39.78;5;5;7;43.25;15.28;5.68;5.36;False;fin_clinica@3586.03, llegada_emergencia@3724.49, llegada_clinica@4117.86, llegada_cirugia@4780.87
-3586.03;fin_clinica;;;;;;;;;;;;;0.5341;2.07;12.0;3598.03;Sanitizando;0;0;216.25;76.41;39.78;5;5;7;43.25;15.28;5.68;5.52;False;_fin_sanitizacion@3598.03, llegada_emergencia@3724.49, llegada_clinica@4117.86, llegada_cirugia@4780.87
-3598.03;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;216.25;76.41;39.78;5;5;7;43.25;15.28;5.68;5.5;False;llegada_emergencia@3724.49, llegada_clinica@4117.86, llegada_cirugia@4780.87
-3724.49;llegada_emergencia;;;;;;;0.4354;121.12;4189.0;0.8521;121.12;3845.62;;;;;Ocupado;0;0;216.25;76.41;39.78;5;5;8;43.25;15.28;4.97;5.32;False;fin_emergencias@3845.62, llegada_clinica@4117.86, llegada_emergencia@4189.0, llegada_cirugia@4780.87
-3845.62;fin_emergencias;;;;;;;;;;;;;0.3454;1.69;11.0;3856.62;Sanitizando;0;0;216.25;76.41;39.78;5;5;8;43.25;15.28;4.97;5.43;False;_fin_sanitizacion@3856.62, llegada_clinica@4117.86, llegada_emergencia@4189.0, llegada_cirugia@4780.87
-3856.62;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;216.25;76.41;39.78;5;5;8;43.25;15.28;4.97;5.42;False;llegada_clinica@4117.86, llegada_emergencia@4189.0, llegada_cirugia@4780.87
-4117.86;llegada_clinica;;;;0.3161;99.01;4793.72;;;;0.6501;99.01;4216.87;;;;;Ocupado;0;0;216.25;76.41;39.78;5;6;8;43.25;12.73;4.97;5.08;False;llegada_emergencia@4189.0, fin_clinica@4216.87, llegada_cirugia@4780.87, llegada_clinica@4793.72
-4189.0;llegada_emergencia;;;;;;;0.3535;121.12;4633.84;;;;;;;;Ocupado;0;1;216.25;76.41;39.78;5;6;8;43.25;12.73;4.97;4.99;False;fin_clinica@4216.87, llegada_emergencia@4633.84, llegada_cirugia@4780.87, llegada_clinica@4793.72
-4216.87;fin_clinica;;;;;;;;;;;;;0.8239;2.65;14.0;4230.87;Sanitizando;0;1;216.25;76.41;39.78;5;6;8;43.25;12.73;4.97;5.29;False;_fin_sanitizacion@4230.87, llegada_emergencia@4633.84, llegada_cirugia@4780.87, llegada_clinica@4793.72
-4230.87;_fin_sanitizacion;;;;;;;;;;0.7801;116.8;4347.67;;;;;Ocupado;0;0;216.25;76.41;81.65;5;6;9;43.25;12.73;9.07;5.27;False;fin_emergencias@4347.67, llegada_emergencia@4633.84, llegada_cirugia@4780.87, llegada_clinica@4793.72
-4347.67;fin_emergencias;;;;;;;;;;;;;0.8236;2.65;14.0;4361.67;Sanitizando;0;0;216.25;76.41;81.65;5;6;9;43.25;12.73;9.07;5.45;False;_fin_sanitizacion@4361.67, llegada_emergencia@4633.84, llegada_cirugia@4780.87, llegada_clinica@4793.72
-4361.67;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;216.25;76.41;81.65;5;6;9;43.25;12.73;9.07;5.43;False;llegada_emergencia@4633.84, llegada_cirugia@4780.87, llegada_clinica@4793.72
-4633.84;llegada_emergencia;;;;;;;0.546;116.82;5124.89;0.7804;116.82;4750.67;;;;;Ocupado;0;0;216.25;76.41;81.65;5;6;10;43.25;12.73;8.17;5.11;False;fin_emergencias@4750.67, llegada_cirugia@4780.87, llegada_clinica@4793.72, llegada_emergencia@5124.89
-4750.67;fin_emergencias;;;;;;;;;;;;;0.4955;1.99;12.0;4762.67;Sanitizando;0;0;216.25;76.41;81.65;5;6;10;43.25;12.73;8.17;5.24;False;_fin_sanitizacion@4762.67, llegada_cirugia@4780.87, llegada_clinica@4793.72, llegada_emergencia@5124.89
-4762.67;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;216.25;76.41;81.65;5;6;10;43.25;12.73;8.17;5.23;False;llegada_cirugia@4780.87, llegada_clinica@4793.72, llegada_emergencia@5124.89
-4780.87;llegada_cirugia;0.2956;88.32;4991.15;;;;;;;0.472;88.32;4869.19;;;;;Ocupado;0;0;216.25;76.41;81.65;6;6;10;36.04;12.73;8.17;5.21;False;llegada_clinica@4793.72, fin_cirugia@4869.19, llegada_cirugia@4991.15, llegada_emergencia@5124.89
-4793.72;llegada_clinica;;;;0.0614;99.01;5408.45;;;;;;;;;;;Ocupado;1;0;216.25;76.41;81.65;6;6;10;36.04;12.73;8.17;5.19;False;fin_cirugia@4869.19, llegada_cirugia@4991.15, llegada_emergencia@5124.89, llegada_clinica@5408.45
-4869.19;fin_cirugia;;;;;;;;;;;;;0.3656;1.73;11.0;4880.19;Sanitizando;1;0;216.25;76.41;81.65;6;6;10;36.04;12.73;8.17;5.34;False;_fin_sanitizacion@4880.19, llegada_cirugia@4991.15, llegada_emergencia@5124.89, llegada_clinica@5408.45
-4880.19;_fin_sanitizacion;;;;;;;;;;0.7282;103.69;4983.88;;;;;Ocupado;0;0;216.25;162.88;81.65;6;7;10;36.04;23.27;8.17;5.33;False;fin_clinica@4983.88, llegada_cirugia@4991.15, llegada_emergencia@5124.89, llegada_clinica@5408.45
-4983.88;fin_clinica;;;;;;;;;;;;;0.6868;2.37;13.0;4996.88;Sanitizando;0;0;216.25;162.88;81.65;6;7;10;36.04;23.27;8.17;5.48;False;llegada_cirugia@4991.15, _fin_sanitizacion@4996.88, llegada_emergencia@5124.89, llegada_clinica@5408.45
-4991.15;llegada_cirugia;0.0549;88.32;5025.02;;;;;;;;;;;;;;Sanitizando;1;0;216.25;162.88;81.65;6;7;10;36.04;23.27;8.17;5.47;False;_fin_sanitizacion@4996.88, llegada_cirugia@5025.02, llegada_emergencia@5124.89, llegada_clinica@5408.45
-4996.88;_fin_sanitizacion;;;;;;;;;;0.0847;65.08;5061.96;;;;;Ocupado;0;0;221.98;162.88;81.65;7;7;10;31.71;23.27;8.17;5.46;False;llegada_cirugia@5025.02, fin_cirugia@5061.96, llegada_emergencia@5124.89, llegada_clinica@5408.45
-5025.02;llegada_cirugia;0.1281;65.08;5107.25;;;;;;;;;;;;;;Ocupado;1;0;221.98;162.88;81.65;7;7;10;31.71;23.27;8.17;5.43;False;fin_cirugia@5061.96, llegada_cirugia@5107.25, llegada_emergencia@5124.89, llegada_clinica@5408.45
-5061.96;fin_cirugia;;;;;;;;;;;;;0.2593;1.52;10.0;5071.96;Sanitizando;1;0;221.98;162.88;81.65;7;7;10;31.71;23.27;8.17;5.59;False;_fin_sanitizacion@5071.96, llegada_cirugia@5107.25, llegada_emergencia@5124.89, llegada_clinica@5408.45
-5071.96;_fin_sanitizacion;;;;;;;;;;0.8429;110.57;5182.53;;;;;Ocupado;0;0;268.92;162.88;81.65;8;7;10;33.62;23.27;8.17;5.58;False;llegada_cirugia@5107.25, llegada_emergencia@5124.89, fin_cirugia@5182.53, llegada_clinica@5408.45
-5107.25;llegada_cirugia;0.8828;110.57;6393.81;;;;;;;;;;;;;;Ocupado;1;0;268.92;162.88;81.65;8;7;10;33.62;23.27;8.17;5.54;False;llegada_emergencia@5124.89, fin_cirugia@5182.53, llegada_clinica@5408.45, llegada_cirugia@6393.81
-5124.89;llegada_emergencia;;;;;;;0.0738;116.82;5502.62;;;;;;;;Ocupado;1;1;268.92;162.88;81.65;8;7;10;33.62;23.27;8.17;5.52;False;fin_cirugia@5182.53, llegada_clinica@5408.45, llegada_emergencia@5502.62, llegada_cirugia@6393.81
-5182.53;fin_cirugia;;;;;;;;;;;;;0.7309;2.46;13.0;5195.53;Sanitizando;1;1;268.92;162.88;81.65;8;7;10;33.62;23.27;8.17;5.71;False;_fin_sanitizacion@5195.53, llegada_clinica@5408.45, llegada_emergencia@5502.62, llegada_cirugia@6393.81
-5195.53;_fin_sanitizacion;;;;;;;;;;0.4949;89.69;5285.23;;;;;Ocupado;0;1;357.21;162.88;81.65;9;7;10;39.69;23.27;8.17;5.7;False;fin_cirugia@5285.23, llegada_clinica@5408.45, llegada_emergencia@5502.62, llegada_cirugia@6393.81
-5285.23;fin_cirugia;;;;;;;;;;;;;0.0003;1.0;9.0;5294.23;Sanitizando;0;1;357.21;162.88;81.65;9;7;10;39.69;23.27;8.17;5.77;False;_fin_sanitizacion@5294.23, llegada_clinica@5408.45, llegada_emergencia@5502.62, llegada_cirugia@6393.81
-5294.23;_fin_sanitizacion;;;;;;;;;;0.538;102.28;5396.5;;;;;Ocupado;0;0;357.21;162.88;250.99;9;7;11;39.69;23.27;22.82;5.76;False;fin_emergencias@5396.5, llegada_clinica@5408.45, llegada_emergencia@5502.62, llegada_cirugia@6393.81
-5396.5;fin_emergencias;;;;;;;;;;;;;0.7309;2.46;13.0;5409.5;Sanitizando;0;0;357.21;162.88;250.99;9;7;11;39.69;23.27;22.82;5.89;False;llegada_clinica@5408.45, _fin_sanitizacion@5409.5, llegada_emergencia@5502.62, llegada_cirugia@6393.81
-5408.45;llegada_clinica;;;;0.2314;103.69;6064.0;;;;;;;;;;;Sanitizando;1;0;357.21;162.88;250.99;9;7;11;39.69;23.27;22.82;5.88;False;_fin_sanitizacion@5409.5, llegada_emergencia@5502.62, llegada_clinica@6064.0, llegada_cirugia@6393.81
-5409.5;_fin_sanitizacion;;;;;;;;;;0.4334;86.0;5495.51;;;;;Ocupado;0;0;357.21;163.93;250.99;9;8;11;39.69;20.49;22.82;5.88;False;fin_clinica@5495.51, llegada_emergencia@5502.62, llegada_clinica@6064.0, llegada_cirugia@6393.81
-5495.51;fin_clinica;;;;;;;;;;;;;0.2057;1.41;10.0;5505.51;Sanitizando;0;0;357.21;163.93;250.99;9;8;11;39.69;20.49;22.82;5.97;False;llegada_emergencia@5502.62, _fin_sanitizacion@5505.51, llegada_clinica@6064.0, llegada_cirugia@6393.81
-5502.62;llegada_emergencia;;;;;;;0.4087;102.28;5960.7;;;;;;;;Sanitizando;0;1;357.21;163.93;250.99;9;8;11;39.69;20.49;22.82;5.96;False;_fin_sanitizacion@5505.51, llegada_emergencia@5960.7, llegada_clinica@6064.0, llegada_cirugia@6393.81
-5505.51;_fin_sanitizacion;;;;;;;;;;0.7456;114.74;5620.25;;;;;Ocupado;0;0;357.21;163.93;253.88;9;8;12;39.69;20.49;21.16;5.96;False;fin_emergencias@5620.25, llegada_emergencia@5960.7, llegada_clinica@6064.0, llegada_cirugia@6393.81
-5620.25;fin_emergencias;;;;;;;;;;;;;0.6029;2.21;12.0;5632.25;Sanitizando;0;0;357.21;163.93;253.88;9;8;12;39.69;20.49;21.16;6.05;False;_fin_sanitizacion@5632.25, llegada_emergencia@5960.7, llegada_clinica@6064.0, llegada_cirugia@6393.81
-5632.25;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;357.21;163.93;253.88;9;8;12;39.69;20.49;21.16;6.04;False;llegada_emergencia@5960.7, llegada_clinica@6064.0, llegada_cirugia@6393.81
-5960.7;llegada_emergencia;;;;;;;0.4273;100.11;6423.25;0.5018;100.11;6060.81;;;;;Ocupado;0;0;357.21;163.93;253.88;9;8;13;39.69;20.49;19.53;5.7;False;fin_emergencias@6060.81, llegada_clinica@6064.0, llegada_cirugia@6393.81, llegada_emergencia@6423.25
-6060.81;fin_emergencias;;;;;;;;;;;;;0.0559;1.11;9.0;6069.81;Sanitizando;0;0;357.21;163.93;253.88;9;8;13;39.69;20.49;19.53;5.76;False;llegada_clinica@6064.0, _fin_sanitizacion@6069.81, llegada_cirugia@6393.81, llegada_emergencia@6423.25
-6064.0;llegada_clinica;;;;0.1501;86.0;6700.03;;;;;;;;;;;Sanitizando;1;0;357.21;163.93;253.88;9;8;13;39.69;20.49;19.53;5.76;False;_fin_sanitizacion@6069.81, llegada_cirugia@6393.81, llegada_emergencia@6423.25, llegada_clinica@6700.03
-6069.81;_fin_sanitizacion;;;;;;;;;;0.663;99.78;6169.59;;;;;Ocupado;0;0;357.21;169.74;253.88;9;9;13;39.69;18.86;19.53;5.75;False;fin_clinica@6169.59, llegada_cirugia@6393.81, llegada_emergencia@6423.25, llegada_clinica@6700.03
-6169.59;fin_clinica;;;;;;;;;;;;;0.7676;2.54;13.0;6182.59;Sanitizando;0;0;357.21;169.74;253.88;9;9;13;39.69;18.86;19.53;5.87;False;_fin_sanitizacion@6182.59, llegada_cirugia@6393.81, llegada_emergencia@6423.25, llegada_clinica@6700.03
-6182.59;_fin_sanitizacion;;;;;;;;;;;;;;;;;Libre;0;0;357.21;169.74;253.88;9;9;13;39.69;18.86;19.53;5.86;False;llegada_cirugia@6393.81, llegada_emergencia@6423.25, llegada_clinica@6700.03
-6393.81;llegada_cirugia;0.2862;102.72;6596.08;;;;;;;0.7121;102.72;6496.54;;;;;Ocupado;0;0;357.21;169.74;253.88;10;9;13;35.72;18.86;19.53;5.66;False;llegada_emergencia@6423.25, fin_cirugia@6496.54, llegada_cirugia@6596.08, llegada_clinica@6700.03
-6423.25;llegada_emergencia;;;;;;;0.9804;100.11;7018.54;;;;;;;;Ocupado;0;1;357.21;169.74;253.88;10;9;13;35.72;18.86;19.53;5.64;False;fin_cirugia@6496.54, llegada_cirugia@6596.08, llegada_clinica@6700.03, llegada_emergencia@7018.54
-6496.54;fin_cirugia;;;;;;;;;;;;;0.7305;2.46;13.0;6509.54;Sanitizando;0;1;357.21;169.74;253.88;10;9;13;35.72;18.86;19.53;5.77;False;_fin_sanitizacion@6509.54, llegada_cirugia@6596.08, llegada_clinica@6700.03, llegada_emergencia@7018.54
-6509.54;_fin_sanitizacion;;;;;;;;;;0.1216;77.3;6586.83;;;;;Ocupado;0;0;357.21;169.74;340.17;10;9;14;35.72;18.86;24.3;5.76;False;fin_emergencias@6586.83, llegada_cirugia@6596.08, llegada_clinica@6700.03, llegada_emergencia@7018.54
-6586.83;fin_emergencias;;;;;;;;;;;;;0.544;2.09;12.0;6598.83;Sanitizando;0;0;357.21;169.74;340.17;10;9;14;35.72;18.86;24.3;5.88;False;llegada_cirugia@6596.08, _fin_sanitizacion@6598.83, llegada_clinica@6700.03, llegada_emergencia@7018.54
-6596.08;llegada_cirugia;0.1499;102.72;6693.49;;;;;;;;;;;;;;Sanitizando;1;0;357.21;169.74;340.17;10;9;14;35.72;18.86;24.3;5.87;False;_fin_sanitizacion@6598.83, llegada_cirugia@6693.49, llegada_clinica@6700.03, llegada_emergencia@7018.54
-6598.83;_fin_sanitizacion;;;;;;;;;;0.9362;116.17;6715.01;;;;;Ocupado;0;0;359.96;169.74;340.17;11;9;14;32.72;18.86;24.3;5.86;False;llegada_cirugia@6693.49, llegada_clinica@6700.03, fin_cirugia@6715.01, llegada_emergencia@7018.54
+tiempo;evento;cirugia_rnd_llegada;cirugia_tiempo;cirugia_llegada;clinica_rnd_llegada;clinica_tiempo;clinica_llegada;emergencia_rnd_llegada;emergencia_tiempo;emergencia_llegada;box_rnd_duracion;box_duracion;box_fin;sanit_rnd;sanit_s;sanit_duracion;sanit_fin;estado_box;cola_normal;cola_prioritaria;espera_cirugia;espera_clinica;espera_emergencia;turnos_cirugia;turnos_clinica;turnos_emergencia;prom_espera_cirugia;prom_espera_clinica;prom_espera_emergencia;tasa_ocupacion_sanit;rechazada
+0;inicio;0.5905;535.63;535.63;0.0219;605.25;605.25;0.4595;470.28;470.28;;;;;;;;Libre;0;0;0;0;0;0;0;0;0;0;0;0;False
+470.28;llegada_emergencia;;;535.63;;;605.25;0.1148;387.56;857.84;0.5112;100.67;570.95;;;;;Ocupado;0;0;0;0;0;0;0;1;0;0;0.0;0.0;False
+535.63;llegada_cirugia;0.2802;197.28;732.91;;;605.25;;;857.84;;;;;;;;Ocupado;1;0;0;0;0;0;0;1;0;0;0.0;0.0;False
+570.95;fin_emergencias;;;732.91;;;605.25;;;857.84;;;;0.0625;1.12;9.0;579.95;Sanitizando;1;0;0;0;0;0;0;1;0;0;0.0;1.58;False
+579.95;_fin_sanitizacion;;;732.91;;;605.25;;;857.84;0.5923;95.54;675.49;;;;;Ocupado;0;0;44.32;0;0;1;0;1;44.32;0;0.0;1.55;False
+605.25;llegada_clinica;;;732.91;0.07;616.79;1222.04;;;857.84;;;;;;;;Ocupado;1;0;44.32;0;0;1;0;1;44.32;0;0.0;1.49;False
+675.49;fin_cirugia;;;732.91;;;1222.04;;;857.84;;;;0.987;2.97;14.0;689.49;Sanitizando;1;0;44.32;0;0;1;0;1;44.32;0;0.0;3.4;False
+689.49;_fin_sanitizacion;;;732.91;;;1222.04;;;857.84;0.0653;63.92;753.4;;;;;Ocupado;0;0;44.32;84.24;0;1;1;1;44.32;84.24;0.0;3.34;False
+732.91;llegada_cirugia;0.3238;234.74;967.65;;;1222.04;;;857.84;;;;;;;;Ocupado;1;0;44.32;84.24;0;1;1;1;44.32;84.24;0.0;3.14;False
+753.4;fin_clinica;;;967.65;;;1222.04;;;857.84;;;;0.1345;1.27;10.0;763.4;Sanitizando;1;0;44.32;84.24;0;1;1;1;44.32;84.24;0.0;4.38;False
+763.4;_fin_sanitizacion;;;967.65;;;1222.04;;;857.84;0.7696;106.17;869.58;;;;;Ocupado;0;0;74.82;84.24;0;2;1;1;37.41;84.24;0.0;4.32;False
+857.84;llegada_emergencia;;;967.65;;;1222.04;0.9825;595.81;1453.64;;;;;;;;Ocupado;0;1;74.82;84.24;0;2;1;1;37.41;84.24;0.0;3.85;False
+869.58;fin_cirugia;;;967.65;;;1222.04;;;1453.64;;;;0.8969;2.79;14.0;883.58;Sanitizando;0;1;74.82;84.24;0;2;1;1;37.41;84.24;0.0;5.4;False
+883.58;_fin_sanitizacion;;;967.65;;;1222.04;;;1453.64;0.8718;122.31;1005.89;;;;;Ocupado;0;0;74.82;84.24;25.74;2;1;2;37.41;84.24;12.87;5.32;False
+967.65;llegada_cirugia;0.5957;543.31;1510.96;;;1222.04;;;1453.64;;;;;;;;Ocupado;1;0;74.82;84.24;25.74;2;1;2;37.41;84.24;12.87;4.86;False
+1005.89;fin_emergencias;;;1510.96;;;1222.04;;;1453.64;;;;0.2798;1.56;11.0;1016.89;Sanitizando;1;0;74.82;84.24;25.74;2;1;2;37.41;84.24;12.87;5.77;False
+1016.89;_fin_sanitizacion;;;1510.96;;;1222.04;;;1453.64;0.0462;62.77;1079.66;;;;;Ocupado;0;0;124.05;84.24;25.74;3;1;2;41.35;84.24;12.87;5.7;False
+1079.66;fin_cirugia;;;1510.96;;;1222.04;;;1453.64;;;;0.2987;1.6;11.0;1090.66;Sanitizando;0;0;124.05;84.24;25.74;3;1;2;41.35;84.24;12.87;6.39;False
+1090.66;_fin_sanitizacion;;;1510.96;;;1222.04;;;1453.64;;;;;;;;Libre;0;0;124.05;84.24;25.74;3;1;2;41.35;84.24;12.87;6.33;False
+1222.04;llegada_clinica;;;1510.96;0.3119;674.86;1896.9;;;1453.64;0.9866;119.2;1341.24;;;;;Ocupado;0;0;124.05;84.24;25.74;3;2;2;41.35;42.12;12.87;5.65;False
+1341.24;fin_clinica;;;1510.96;;;1896.9;;;1453.64;;;;0.4205;1.84;11.0;1352.24;Sanitizando;0;0;124.05;84.24;25.74;3;2;2;41.35;42.12;12.87;5.96;False
+1352.24;_fin_sanitizacion;;;1510.96;;;1896.9;;;1453.64;;;;;;;;Libre;0;0;124.05;84.24;25.74;3;2;2;41.35;42.12;12.87;5.92;False
+1453.64;llegada_emergencia;;;1510.96;;;1896.9;0.4625;471.01;1924.65;0.3347;90.08;1543.72;;;;;Ocupado;0;0;124.05;84.24;25.74;3;2;3;41.35;42.12;8.58;5.5;False
+1510.96;llegada_cirugia;0.8247;1044.82;2555.77;;;1896.9;;;1924.65;;;;;;;;Ocupado;1;0;124.05;84.24;25.74;3;2;3;41.35;42.12;8.58;5.29;False
+1543.72;fin_emergencias;;;2555.77;;;1896.9;;;1924.65;;;;0.5036;2.01;12.0;1555.72;Sanitizando;1;0;124.05;84.24;25.74;3;2;3;41.35;42.12;8.58;5.96;False
+1555.72;_fin_sanitizacion;;;2555.77;;;1896.9;;;1924.65;0.1402;68.41;1624.14;;;;;Ocupado;0;0;168.82;84.24;25.74;4;2;3;42.2;42.12;8.58;5.91;False
+1624.14;fin_cirugia;;;2555.77;;;1896.9;;;1924.65;;;;0.0661;1.13;9.0;1633.14;Sanitizando;0;0;168.82;84.24;25.74;4;2;3;42.2;42.12;8.58;6.22;False
+1633.14;_fin_sanitizacion;;;2555.77;;;1896.9;;;1924.65;;;;;;;;Libre;0;0;168.82;84.24;25.74;4;2;3;42.2;42.12;8.58;6.18;False
+1896.9;llegada_clinica;;;2555.77;0.5272;726.52;2623.42;;;1924.65;0.0193;61.16;1958.06;;;;;Ocupado;0;0;168.82;84.24;25.74;4;3;3;42.2;28.08;8.58;5.32;False
+1924.65;llegada_emergencia;;;2555.77;;;2623.42;0.7264;534.35;2459.0;;;;;;;;Ocupado;0;1;168.82;84.24;25.74;4;3;3;42.2;28.08;8.58;5.25;False
+1958.06;fin_clinica;;;2555.77;;;2623.42;;;2459.0;;;;0.4456;1.89;12.0;1970.06;Sanitizando;0;1;168.82;84.24;25.74;4;3;3;42.2;28.08;8.58;5.77;False
+1970.06;_fin_sanitizacion;;;2555.77;;;2623.42;;;2459.0;0.5778;104.67;2074.73;;;;;Ocupado;0;0;168.82;84.24;71.15;4;3;4;42.2;28.08;17.79;5.74;False
+2074.73;fin_emergencias;;;2555.77;;;2623.42;;;2459.0;;;;0.819;2.64;14.0;2088.73;Sanitizando;0;0;168.82;84.24;71.15;4;3;4;42.2;28.08;17.79;6.12;False
+2088.73;_fin_sanitizacion;;;2555.77;;;2623.42;;;2459.0;;;;;;;;Libre;0;0;168.82;84.24;71.15;4;3;4;42.2;28.08;17.79;6.08;False
+2459.0;llegada_emergencia;;;2555.77;;;2623.42;0.0949;382.79;2841.78;0.3733;92.4;2551.4;;;;;Ocupado;0;0;168.82;84.24;71.15;4;3;5;42.2;28.08;14.23;5.16;False
+2551.4;fin_emergencias;;;2555.77;;;2623.42;;;2841.78;;;;0.7866;2.57;13.0;2564.4;Sanitizando;0;0;168.82;84.24;71.15;4;3;5;42.2;28.08;14.23;5.49;False
+2555.77;llegada_cirugia;0.3296;239.91;2795.69;;;2623.42;;;2841.78;;;;;;;;Sanitizando;1;0;168.82;84.24;71.15;4;3;5;42.2;28.08;14.23;5.48;False
+2564.4;_fin_sanitizacion;;;2795.69;;;2623.42;;;2841.78;0.276;76.56;2640.96;;;;;Ocupado;0;0;177.44;84.24;71.15;5;3;5;35.49;28.08;14.23;5.46;False
+2623.42;llegada_clinica;;;2795.69;0.0747;617.92;3241.35;;;2841.78;;;;;;;;Ocupado;1;0;177.44;84.24;71.15;5;3;5;35.49;28.08;14.23;5.34;False
+2640.96;fin_cirugia;;;2795.69;;;3241.35;;;2841.78;;;;0.3081;1.62;11.0;2651.96;Sanitizando;1;0;177.44;84.24;71.15;5;3;5;35.49;28.08;14.23;5.72;False
+2651.96;_fin_sanitizacion;;;2795.69;;;3241.35;;;2841.78;0.2739;76.43;2728.39;;;;;Ocupado;0;0;177.44;112.77;71.15;5;4;5;35.49;28.19;14.23;5.69;False
+2728.39;fin_clinica;;;2795.69;;;3241.35;;;2841.78;;;;0.3524;1.7;11.0;2739.39;Sanitizando;0;0;177.44;112.77;71.15;5;4;5;35.49;28.19;14.23;5.94;False
+2739.39;_fin_sanitizacion;;;2795.69;;;3241.35;;;2841.78;;;;;;;;Libre;0;0;177.44;112.77;71.15;5;4;5;35.49;28.19;14.23;5.91;False
+2795.69;llegada_cirugia;0.1304;83.81;2879.5;;;3241.35;;;2841.78;0.0597;63.58;2859.27;;;;;Ocupado;0;0;177.44;112.77;71.15;6;4;5;29.57;28.19;14.23;5.79;False
+2841.78;llegada_emergencia;;;2879.5;;;3241.35;0.2046;409.09;3250.88;;;;;;;;Ocupado;0;1;177.44;112.77;71.15;6;4;5;29.57;28.19;14.23;5.7;False
+2859.27;fin_cirugia;;;2879.5;;;3241.35;;;3250.88;;;;0.2129;1.43;10.0;2869.27;Sanitizando;0;1;177.44;112.77;71.15;6;4;5;29.57;28.19;14.23;6.02;False
+2869.27;_fin_sanitizacion;;;2879.5;;;3241.35;;;3250.88;0.1878;81.27;2950.53;;;;;Ocupado;0;0;177.44;112.77;98.64;6;4;6;29.57;28.19;16.44;5.99;False
+2879.5;llegada_cirugia;0.0485;29.83;2909.33;;;3241.35;;;3250.88;;;;;;;;Ocupado;1;0;177.44;112.77;98.64;6;4;6;29.57;28.19;16.44;5.97;False
+2909.33;llegada_cirugia;0.1161;74.07;2983.4;;;3241.35;;;3250.88;;;;;;;;Ocupado;2;0;177.44;112.77;98.64;6;4;6;29.57;28.19;16.44;5.91;False
+2950.53;fin_emergencias;;;2983.4;;;3241.35;;;3250.88;;;;0.7109;2.42;13.0;2963.53;Sanitizando;2;0;177.44;112.77;98.64;6;4;6;29.57;28.19;16.44;6.27;False
+2963.53;_fin_sanitizacion;;;2983.4;;;3241.35;;;3250.88;0.8484;110.91;3074.44;;;;;Ocupado;1;0;261.48;112.77;98.64;7;4;6;37.35;28.19;16.44;6.24;False
+2983.4;llegada_cirugia;0.8981;1370.41;4353.81;;;3241.35;;;3250.88;;;;;;;;Ocupado;2;0;261.48;112.77;98.64;7;4;6;37.35;28.19;16.44;6.2;False
+3074.44;fin_cirugia;;;4353.81;;;3241.35;;;3250.88;;;;0.873;2.75;14.0;3088.44;Sanitizando;2;0;261.48;112.77;98.64;7;4;6;37.35;28.19;16.44;6.47;False
+3088.44;_fin_sanitizacion;;;4353.81;;;3241.35;;;3250.88;0.2167;73.0;3161.44;;;;;Ocupado;1;0;440.59;112.77;98.64;8;4;6;55.07;28.19;16.44;6.44;False
+3161.44;fin_cirugia;;;4353.81;;;3241.35;;;3250.88;;;;0.7214;2.44;13.0;3174.44;Sanitizando;1;0;440.59;112.77;98.64;8;4;6;55.07;28.19;16.44;6.71;False
+3174.44;_fin_sanitizacion;;;4353.81;;;3241.35;;;3250.88;0.494;89.64;3264.08;;;;;Ocupado;0;0;631.62;112.77;98.64;9;4;6;70.18;28.19;16.44;6.68;False
+3241.35;llegada_clinica;;;4353.81;0.8288;798.91;4040.25;;;3250.88;;;;;;;;Ocupado;1;0;631.62;112.77;98.64;9;4;6;70.18;28.19;16.44;6.54;False
+3250.88;llegada_emergencia;;;4353.81;;;4040.25;0.9554;589.29;3840.17;;;;;;;;Ocupado;1;1;631.62;112.77;98.64;9;4;6;70.18;28.19;16.44;6.52;False
+3264.08;fin_cirugia;;;4353.81;;;4040.25;;;3840.17;;;;0.3053;1.61;11.0;3275.08;Sanitizando;1;1;631.62;112.77;98.64;9;4;6;70.18;28.19;16.44;6.83;False
+3275.08;_fin_sanitizacion;;;4353.81;;;4040.25;;;3840.17;0.446;86.76;3361.84;;;;;Ocupado;0;1;631.62;146.51;98.64;9;5;6;70.18;29.3;16.44;6.81;False
+3361.84;fin_clinica;;;4353.81;;;4040.25;;;3840.17;;;;0.379;1.76;11.0;3372.84;Sanitizando;0;1;631.62;146.51;98.64;9;5;6;70.18;29.3;16.44;6.96;False
+3372.84;_fin_sanitizacion;;;4353.81;;;4040.25;;;3840.17;0.2675;86.05;3458.89;;;;;Ocupado;0;0;631.62;146.51;220.6;9;5;7;70.18;29.3;31.51;6.94;False
+3458.89;fin_emergencias;;;4353.81;;;4040.25;;;3840.17;;;;0.7317;2.46;13.0;3471.89;Sanitizando;0;0;631.62;146.51;220.6;9;5;7;70.18;29.3;31.51;7.14;False
+3471.89;_fin_sanitizacion;;;4353.81;;;4040.25;;;3840.17;;;;;;;;Libre;0;0;631.62;146.51;220.6;9;5;7;70.18;29.3;31.51;7.11;False
+3840.17;llegada_emergencia;;;4353.81;;;4040.25;0.6679;520.29;4360.46;0.5847;105.08;3945.25;;;;;Ocupado;0;0;631.62;146.51;220.6;9;5;8;70.18;29.3;27.57;6.43;False
+3945.25;fin_emergencias;;;4353.81;;;4040.25;;;4360.46;;;;0.528;2.06;12.0;3957.25;Sanitizando;0;0;631.62;146.51;220.6;9;5;8;70.18;29.3;27.57;6.56;False
+3957.25;_fin_sanitizacion;;;4353.81;;;4040.25;;;4360.46;;;;;;;;Libre;0;0;631.62;146.51;220.6;9;5;8;70.18;29.3;27.57;6.54;False
+4040.25;llegada_clinica;;;4353.81;0.2691;664.59;4704.84;;;4360.46;0.5413;92.48;4132.73;;;;;Ocupado;0;0;631.62;146.51;220.6;9;6;8;70.18;24.42;27.57;6.41;False
+4132.73;fin_clinica;;;4353.81;;;4704.84;;;4360.46;;;;0.8274;2.65;14.0;4146.73;Sanitizando;0;0;631.62;146.51;220.6;9;6;8;70.18;24.42;27.57;6.61;False
+4146.73;_fin_sanitizacion;;;4353.81;;;4704.84;;;4360.46;;;;;;;;Libre;0;0;631.62;146.51;220.6;9;6;8;70.18;24.42;27.57;6.58;False
+4353.81;llegada_cirugia;0.0779;48.64;4402.45;;;4704.84;;;4360.46;0.8307;109.84;4463.66;;;;;Ocupado;0;0;631.62;146.51;220.6;10;6;8;63.16;24.42;27.57;6.27;False
+4360.46;llegada_emergencia;;;4402.45;;;4704.84;0.8684;568.42;4928.88;;;;;;;;Ocupado;0;1;631.62;146.51;220.6;10;6;8;63.16;24.42;27.57;6.26;False
+4402.45;llegada_cirugia;0.4259;332.93;4735.38;;;4704.84;;;4928.88;;;;;;;;Ocupado;1;1;631.62;146.51;220.6;10;6;8;63.16;24.42;27.57;6.2;False
+4463.66;fin_cirugia;;;4735.38;;;4704.84;;;4928.88;;;;0.6646;2.33;13.0;4476.66;Sanitizando;1;1;631.62;146.51;220.6;10;6;8;63.16;24.42;27.57;6.41;False
+4476.66;_fin_sanitizacion;;;4735.38;;;4704.84;;;4928.88;0.8105;108.63;4585.28;;;;;Ocupado;0;1;705.83;146.51;220.6;11;6;8;64.17;24.42;27.57;6.39;False
+4585.28;fin_cirugia;;;4735.38;;;4704.84;;;4928.88;;;;0.0724;1.14;9.0;4594.28;Sanitizando;0;1;705.83;146.51;220.6;11;6;8;64.17;24.42;27.57;6.43;False
+4594.28;_fin_sanitizacion;;;4735.38;;;4704.84;;;4928.88;0.8582;121.49;4715.78;;;;;Ocupado;0;0;705.83;146.51;454.43;11;6;9;64.17;24.42;50.49;6.42;False
+4704.84;llegada_clinica;;;4735.38;0.8615;806.75;5511.59;;;4928.88;;;;;;;;Ocupado;1;0;705.83;146.51;454.43;11;6;9;64.17;24.42;50.49;6.27;False
+4715.78;fin_emergencias;;;4735.38;;;5511.59;;;4928.88;;;;0.3371;1.67;11.0;4726.78;Sanitizando;1;0;705.83;146.51;454.43;11;6;9;64.17;24.42;50.49;6.49;False
+4726.78;_fin_sanitizacion;;;4735.38;;;5511.59;;;4928.88;0.4501;87.01;4813.79;;;;;Ocupado;0;0;705.83;168.45;454.43;11;7;9;64.17;24.06;50.49;6.47;False
+4735.38;llegada_cirugia;0.416;322.73;5058.11;;;5511.59;;;4928.88;;;;;;;;Ocupado;1;0;705.83;168.45;454.43;11;7;9;64.17;24.06;50.49;6.46;False
+4813.79;fin_clinica;;;5058.11;;;5511.59;;;4928.88;;;;0.8766;2.75;14.0;4827.79;Sanitizando;1;0;705.83;168.45;454.43;11;7;9;64.17;24.06;50.49;6.65;False
+4827.79;_fin_sanitizacion;;;5058.11;;;5511.59;;;4928.88;0.2453;74.72;4902.51;;;;;Ocupado;0;0;798.23;168.45;454.43;12;7;9;66.52;24.06;50.49;6.63;False
+4902.51;fin_cirugia;;;5058.11;;;5511.59;;;4928.88;;;;0.9627;2.93;14.0;4916.51;Sanitizando;0;0;798.23;168.45;454.43;12;7;9;66.52;24.06;50.49;6.81;False
+4916.51;_fin_sanitizacion;;;5058.11;;;5511.59;;;4928.88;;;;;;;;Libre;0;0;798.23;168.45;454.43;12;7;9;66.52;24.06;50.49;6.79;False
+4928.88;llegada_emergencia;;;5058.11;;;5511.59;0.3545;445.08;5373.96;0.1355;78.13;5007.01;;;;;Ocupado;0;0;798.23;168.45;454.43;12;7;10;66.52;24.06;45.44;6.78;False
+5007.01;fin_emergencias;;;5058.11;;;5511.59;;;5373.96;;;;0.9094;2.82;14.0;5021.01;Sanitizando;0;0;798.23;168.45;454.43;12;7;10;66.52;24.06;45.44;6.95;False
+5021.01;_fin_sanitizacion;;;5058.11;;;5511.59;;;5373.96;;;;;;;;Libre;0;0;798.23;168.45;454.43;12;7;10;66.52;24.06;45.44;6.93;False
+5058.11;llegada_cirugia;0.7819;913.76;5971.87;;;5511.59;;;5373.96;0.5273;91.64;5149.75;;;;;Ocupado;0;0;798.23;168.45;454.43;13;7;10;61.4;24.06;45.44;6.88;False
+5149.75;fin_cirugia;;;5971.87;;;5511.59;;;5373.96;;;;0.0218;1.04;9.0;5158.75;Sanitizando;0;0;798.23;168.45;454.43;13;7;10;61.4;24.06;45.44;6.93;False
+5158.75;_fin_sanitizacion;;;5971.87;;;5511.59;;;5373.96;;;;;;;;Libre;0;0;798.23;168.45;454.43;13;7;10;61.4;24.06;45.44;6.92;False
+5373.96;llegada_emergencia;;;5971.87;;;5511.59;0.0194;364.65;5738.61;0.4764;98.58;5472.55;;;;;Ocupado;0;0;798.23;168.45;454.43;13;7;11;61.4;24.06;41.31;6.64;False
+5472.55;fin_emergencias;;;5971.87;;;5511.59;;;5738.61;;;;0.3193;1.64;11.0;5483.55;Sanitizando;0;0;798.23;168.45;454.43;13;7;11;61.4;24.06;41.31;6.72;False
+5483.55;_fin_sanitizacion;;;5971.87;;;5511.59;;;5738.61;;;;;;;;Libre;0;0;798.23;168.45;454.43;13;7;11;61.4;24.06;41.31;6.71;False
+5511.59;llegada_clinica;;;5971.87;0.055;613.2;6124.79;;;5738.61;0.7302;103.81;5615.4;;;;;Ocupado;0;0;798.23;168.45;454.43;13;8;11;61.4;21.06;41.31;6.68;False
+5615.4;fin_clinica;;;5971.87;;;6124.79;;;5738.61;;;;0.7319;2.46;13.0;5628.4;Sanitizando;0;0;798.23;168.45;454.43;13;8;11;61.4;21.06;41.31;6.78;False
+5628.4;_fin_sanitizacion;;;5971.87;;;6124.79;;;5738.61;;;;;;;;Libre;0;0;798.23;168.45;454.43;13;8;11;61.4;21.06;41.31;6.77;False
+5738.61;llegada_emergencia;;;5971.87;;;6124.79;0.9017;576.41;6315.03;0.8915;123.49;5862.1;;;;;Ocupado;0;0;798.23;168.45;454.43;13;8;12;61.4;21.06;37.87;6.64;False
+5862.1;fin_emergencias;;;5971.87;;;6124.79;;;6315.03;;;;0.6268;2.25;13.0;5875.1;Sanitizando;0;0;798.23;168.45;454.43;13;8;12;61.4;21.06;37.87;6.72;False
+5875.1;_fin_sanitizacion;;;5971.87;;;6124.79;;;6315.03;;;;;;;;Libre;0;0;798.23;168.45;454.43;13;8;12;61.4;21.06;37.87;6.71;False
