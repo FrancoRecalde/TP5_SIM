@@ -147,11 +147,13 @@ def iniciar_colas(
                     "tasa_ocupacion_sanit": 0,
 
                     "rechazada": False,
+
+                    "cola": ""
                 }
 
                 vector_estado.append(registro)
             continue
-        
+
         if evento.tipo.startswith("llegada"):
             practica = evento.practica
             nombre = practica.__class__.__name__.lower()
@@ -223,6 +225,11 @@ def iniciar_colas(
                 box.set_libre()
 
         eventos_futuros.sort()
+
+        cola_actual_str = "; ".join(
+            f"{i+1}: {p[0].__class__.__name__}" for i, p in enumerate(cola_espera)
+        )
+
         if t >= desde:
             registro = {
                 "tiempo": round(t, 2),
@@ -268,6 +275,8 @@ def iniciar_colas(
                 "tasa_ocupacion_sanit": round((tiempo_total_sanit / t) * 100, 2) if t else 0,
 
                 "rechazada": rechazada,
+
+                "cola": cola_actual_str
             }
 
             vector_estado.append(registro)
