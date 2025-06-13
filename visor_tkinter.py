@@ -130,15 +130,18 @@ def mostrar_calculo_s():
         s = 0
 
         pasos = []
-        while s < s_obj:
+        while True:
             k1 = h * (a * t + b * s ** 2)
             k2 = h * (a * (t + h / 2) + b * (s + k1 / 2) ** 2)
             k3 = h * (a * (t + h / 2) + b * (s + k2 / 2) ** 2)
             k4 = h * (a * (t + h) + b * (s + k3) ** 2)
             delta_s = (k1 + 2 * k2 + 2 * k3 + k4) / 6
             pasos.append((round(t, 4), round(s, 4), round(k1, 4), round(k2, 4), round(k3, 4), round(k4, 4), round(delta_s, 4)))
+            if s >= s_obj:
+                break
             s += delta_s
             t += h
+
 
         ventana = tk.Toplevel(root)
         ventana.title("Runge-Kutta para cálculo de S")
@@ -159,7 +162,7 @@ def mostrar_calculo_s():
 
 root = tk.Tk()
 root.title("Simulación Centro Médico")
-root.geometry("550x800")
+root.geometry("500x650")
 
 frame = ttk.LabelFrame(root, text="Parámetros de Simulación", padding=15)
 frame.pack(expand=True, fill="both", padx=10, pady=10)
