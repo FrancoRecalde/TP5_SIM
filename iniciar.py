@@ -80,13 +80,15 @@ def iniciar_colas(
             break
         random_duracion = None
 
-        if not evento.tipo.startswith("llegada") or esta == "ocupado":
+        if not evento.tipo.startswith("llegada") or not esta == "Ocupado":
             tiempo_fin_box = None
 
         duracion_en_box = None
         random_sanit = None
         sanit_s = None
         tiempo_sanit = None
+        if not evento.tipo.startswith("llegada") or not esta == "Sanitizando":
+            tiempo_fin_sanit = None
 
         c_rnd, c_dur, c_lleg = "", "", ""
         cl_rnd, cl_dur, cl_lleg = "", "", ""
@@ -174,7 +176,7 @@ def iniciar_colas(
                     j += 1
                 vector_estado.append(registro)
             continue
-        tiempo_box = 0
+
         if evento.tipo.startswith("llegada"):
             practica = evento.practica
             practicas_en_sistema[id] = evento.practica
@@ -229,6 +231,7 @@ def iniciar_colas(
             random_sanit = rng.random()
             sanit_s = 1 + random_sanit * (sanit_s_max - sanit_s_min)
             tiempo_sanit = sanitario.runge_kutta(sanit_s)
+            tiempo_fin_sanit = round(t + tiempo_sanit, 2)
             tiempo_total_sanit += tiempo_sanit
             eventos_futuros.append(Evento(t + tiempo_sanit, "_fin_sanitizacion"))
 
@@ -244,6 +247,7 @@ def iniciar_colas(
                 proxima.duracion()
                 random_duracion = proxima.random_num_duracion
                 duracion_en_box = proxima.duracion_var
+                tiempo_fin_box = round(t + duracion_en_box, 2)
                 fin_tipo = f"fin_{proxima.__class__.__name__.lower()}"
                 eventos_futuros.append(Evento(t + duracion_en_box, fin_tipo, proxima))
 
@@ -290,7 +294,7 @@ def iniciar_colas(
                 "sanit_rnd": round(random_sanit, 4) if random_sanit else "",
                 "sanit_s": round(sanit_s, 2) if sanit_s else "",
                 "sanit_duracion": round(tiempo_sanit, 2) if tiempo_sanit else "",
-                "sanit_fin": round(t + tiempo_sanit, 2) if tiempo_sanit else "",
+                "sanit_fin": tiempo_fin_sanit if tiempo_fin_sanit else "",
 
                 "estado_box": box.estado(),
                 "cola_normal": len([p for p in cola_espera if prioridad(p[0]) == 2]),
@@ -314,11 +318,15 @@ def iniciar_colas(
 
                 "cola": cola_actual_str,
             }
-            # Añadir dinámicamente los estados de las prácticas activas
-            for pract_id, pract in practicas_en_sistema.items():
-                registro[f"Id_Practica_{pract_id}"] = pract_id
-                registro[f"Tipo_Practica_{pract_id}"] = pract.__class__.__name__
-                registro[f"Estado_Practica_{pract_id}"] = pract.get_estado()
+            # Añadir dinámicamente los datos de las prácticas en sistema
+            ident = 1
+            while ident < iteraciones / 2.5:
+                for pract_id, pract in practicas_en_sistema.items():
+                    registro[f"Id_Practica_{ident}"] = pract_id
+                    registro[f"Tipo_Practica_{ident}"] = pract.__class__.__name__
+                    registro[f"Estado_Practica_{ident}"] = pract.get_estado()
+                    ident += 1
+                break
 
             vector_estado.append(registro)
 
