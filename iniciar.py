@@ -57,10 +57,24 @@ def iniciar_colas(
     last_cl_lleg = ""
     last_e_lleg = ""
 
+    practicas_en_sistema = {}
+    id = 1
+    id_practica_box = 0
     for i in range(iteraciones):
 
         if not eventos_futuros:
             break
+
+
+        k = 1
+        while k <= id:
+            if practicas_en_sistema:
+                if k in practicas_en_sistema:
+                    if practicas_en_sistema[k].get_estado() == 'destruccion':
+                        print("se elimino", k, practicas_en_sistema[k])
+                        del practicas_en_sistema[k]
+            k += 1
+        print(practicas_en_sistema)
 
         evento = eventos_futuros.pop(0)
         t = evento.tiempo
@@ -78,6 +92,8 @@ def iniciar_colas(
         e_rnd, e_dur, e_lleg = "", "", ""
 
         rechazada = False
+
+
 
         if evento.tipo == "inicio":
             cirugia.frecuencia_llegada(0)
@@ -101,7 +117,6 @@ def iniciar_colas(
             last_c_lleg = c_lleg
             last_cl_lleg = cl_lleg
             last_e_lleg = e_lleg
-
             if t >= desde:
                 registro = {
                     "tiempo": 0,
@@ -148,18 +163,28 @@ def iniciar_colas(
 
                     "rechazada": False,
 
-                    "cola": ""
+                    "cola": "",
                 }
-
+                j = 1
+                while j < iteraciones/2.5:
+                    registro[f"Id_Practica_{j}"] = ""
+                    registro[f"Tipo_Practica_{j}"] = ""
+                    registro[f"Estado_Practica_{j}"] = ""
+                    j += 1
                 vector_estado.append(registro)
             continue
 
         if evento.tipo.startswith("llegada"):
             practica = evento.practica
+            practicas_en_sistema[id] = evento.practica
             nombre = practica.__class__.__name__.lower()
 
             if box.libre:
                 box.set_ocupado()
+                practica.set_estado('llevandose a cabo')
+                id_practica_box = id
+                id += 1
+
                 practica.duracion()
                 random_duracion = practica.random_num_duracion
                 duracion_en_box = practica.duracion_var
@@ -174,6 +199,10 @@ def iniciar_colas(
                     cant_turnos_emergencia += 1
             else:
                 if len(cola_espera) < max_espera:
+                    if isinstance(practica, (Cirugia.Cirugia, Clinica.Clinica)):
+                        practica.set_estado('cola prioritaria')
+                    else:
+                        practica.set_estado('cola')
                     cola_espera.append((practica, t))
                 else:
                     rechazada = True
@@ -193,6 +222,7 @@ def iniciar_colas(
 
         elif evento.tipo.startswith("fin_"):
             box.set_sanitizando()
+            practicas_en_sistema[id_practica_box].set_estado('destruccion')
             sanitario = Sanitario(sanit_s_min, sanit_s_max, edo_const_1, edo_const_2, h)
             random_sanit = rng.random()
             sanit_s = 1 + random_sanit * (sanit_s_max - sanit_s_min)
@@ -205,6 +235,10 @@ def iniciar_colas(
                 cola_espera.sort(key=lambda p: (prioridad(p[0]), p[1]))
                 proxima, llegada_cola = cola_espera.pop(0)
                 box.set_ocupado()
+                practicas_en_sistema[id] = proxima
+                proxima.set_estado('llevandose a cabo')
+                id_practica_box = id
+                id += 1
                 proxima.duracion()
                 random_duracion = proxima.random_num_duracion
                 duracion_en_box = proxima.duracion_var
@@ -257,8 +291,8 @@ def iniciar_colas(
                 "sanit_fin": round(t + tiempo_sanit, 2) if tiempo_sanit else "",
 
                 "estado_box": box.estado(),
-                "cola_normal": len([p for p in cola_espera if prioridad(p[0]) == 1]),
-                "cola_prioritaria": len([p for p in cola_espera if prioridad(p[0]) == 2]),
+                "cola_normal": len([p for p in cola_espera if prioridad(p[0]) == 2]),
+                "cola_prioritaria": len([p for p in cola_espera if prioridad(p[0]) == 1]),
 
                 "espera_cirugia": round(suma_espera_cirugia, 2),
                 "espera_clinica": round(suma_espera_clinica, 2),
@@ -276,8 +310,13 @@ def iniciar_colas(
 
                 "rechazada": rechazada,
 
-                "cola": cola_actual_str
+                "cola": cola_actual_str,
             }
+            # Añadir dinámicamente los estados de las prácticas activas
+            for pract_id, pract in practicas_en_sistema.items():
+                registro[f"Id_Practica_{pract_id}"] = pract_id
+                registro[f"Tipo_Practica_{pract_id}"] = pract.__class__.__name__
+                registro[f"Estado_Practica_{pract_id}"] = pract.get_estado()
 
             vector_estado.append(registro)
 

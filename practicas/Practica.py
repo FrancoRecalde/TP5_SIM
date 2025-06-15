@@ -11,3 +11,7 @@ class Practica:
     @abstractmethod
     def duracion(self):
         pass
+
+    @abstractmethod
+    def set_estado(self):
+        pass
