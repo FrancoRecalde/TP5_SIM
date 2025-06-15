@@ -65,16 +65,13 @@ def iniciar_colas(
         if not eventos_futuros:
             break
 
-
         k = 1
         while k <= id:
             if practicas_en_sistema:
                 if k in practicas_en_sistema:
                     if practicas_en_sistema[k].get_estado() == 'destruccion':
-                        print("se elimino", k, practicas_en_sistema[k])
                         del practicas_en_sistema[k]
             k += 1
-        print(practicas_en_sistema)
 
         evento = eventos_futuros.pop(0)
         t = evento.tiempo
@@ -82,6 +79,10 @@ def iniciar_colas(
         if t > tiempo:
             break
         random_duracion = None
+
+        if not evento.tipo.startswith("llegada") or esta == "ocupado":
+            tiempo_fin_box = None
+
         duracion_en_box = None
         random_sanit = None
         sanit_s = None
@@ -173,7 +174,7 @@ def iniciar_colas(
                     j += 1
                 vector_estado.append(registro)
             continue
-
+        tiempo_box = 0
         if evento.tipo.startswith("llegada"):
             practica = evento.practica
             practicas_en_sistema[id] = evento.practica
@@ -188,6 +189,7 @@ def iniciar_colas(
                 practica.duracion()
                 random_duracion = practica.random_num_duracion
                 duracion_en_box = practica.duracion_var
+                tiempo_fin_box = round(t + duracion_en_box, 2)
                 fin_tipo = f"fin_{nombre}"
                 eventos_futuros.append(Evento(t + duracion_en_box, fin_tipo, practica))
 
@@ -283,7 +285,7 @@ def iniciar_colas(
 
                 "box_rnd_duracion": round(random_duracion, 4) if random_duracion is not None else "",
                 "box_duracion": round(duracion_en_box, 2) if duracion_en_box else "",
-                "box_fin": round(t + duracion_en_box, 2) if duracion_en_box else "",
+                "box_fin": tiempo_fin_box if tiempo_fin_box else "",
 
                 "sanit_rnd": round(random_sanit, 4) if random_sanit else "",
                 "sanit_s": round(sanit_s, 2) if sanit_s else "",
