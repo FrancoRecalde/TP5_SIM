@@ -58,10 +58,11 @@ def iniciar_colas(
     last_e_lleg = ""
 
     practicas_en_sistema = {}
+    ids_actuales = []
     id = 1
     id_practica_box = 0
     for i in range(iteraciones):
-
+        print(ids_actuales)
         if not eventos_futuros:
             break
 
@@ -70,6 +71,9 @@ def iniciar_colas(
             if practicas_en_sistema:
                 if k in practicas_en_sistema:
                     if practicas_en_sistema[k].get_estado() == 'destruccion':
+                        for i in range(len(ids_actuales)):
+                            if ids_actuales[i] == k:
+                                ids_actuales[i] = -1
                         del practicas_en_sistema[k]
             k += 1
 
@@ -178,15 +182,43 @@ def iniciar_colas(
             continue
 
         if evento.tipo.startswith("llegada"):
-            practica = evento.practica
-            practicas_en_sistema[id] = evento.practica
+            tipo = evento.tipo.split("_")[1]  # 'cirugia', 'clinica', 'emergencia'
+            if tipo == "cirugia":
+                practica = Cirugia.Cirugia(media_llegada_cirugia, duracion_min_cir, duracion_max_cir)
+            elif tipo == "clinica":
+                practica = Clinica.Clinica(llegada_clinica_min, llegada_clinica_max, duracion_min_cli, duracion_max_cli)
+            elif tipo == "emergencia":
+                practica = Emergencias.Emergencias(llegada_emergencia_min, llegada_emergencia_max, duracion_min_em, duracion_max_em)
+
+
+
+
+
+
             nombre = practica.__class__.__name__.lower()
 
             if box.libre:
+
+                practicas_en_sistema[id] = practica
+                if ids_actuales:
+                    print("entro a asignar id")
+                    for i in range(len(ids_actuales)):
+                        if ids_actuales[i] != id:
+                            if ids_actuales[i] == -1:
+                                print("asigno", id)
+                                ids_actuales[i] = id
+                                break
+                            elif i == len(ids_actuales)-1:
+                                print("asigno", id)
+                                ids_actuales.append(id)
+                else:
+                    ids_actuales.append(id)
+                id += 1
+
                 box.set_ocupado()
                 practica.set_estado('llevandose a cabo')
                 id_practica_box = id
-                id += 1
+                # id += 1
 
                 practica.duracion()
                 random_duracion = practica.random_num_duracion
@@ -202,12 +234,31 @@ def iniciar_colas(
                 else:
                     cant_turnos_emergencia += 1
             else:
+                # id += 1
                 if len(cola_espera) < max_espera:
+                    practicas_en_sistema[id] = practica
+                    if ids_actuales:
+                        print("entro a asignar id")
+                        for i in range(len(ids_actuales)):
+                            if ids_actuales[i] != id:
+                                if ids_actuales[i] == -1:
+                                    print("asigno", id)
+                                    ids_actuales[i] = id
+                                    break
+                                elif i == len(ids_actuales)-1:
+                                    print("asigno", id)
+                                    ids_actuales.append(id)
+                    else:
+                        ids_actuales.append(id)
+                    id += 1
+
+
                     if isinstance(practica, (Cirugia.Cirugia, Clinica.Clinica)):
                         practica.set_estado('cola prioritaria')
                     else:
                         practica.set_estado('cola')
                     cola_espera.append((practica, t))
+
                 else:
                     rechazada = True
 
@@ -226,7 +277,13 @@ def iniciar_colas(
 
         elif evento.tipo.startswith("fin_"):
             box.set_sanitizando()
-            practicas_en_sistema[id_practica_box].set_estado('destruccion')
+            '''practicas_en_sistema[id_practica_box].set_estado('destruccion')'''
+            if practicas_en_sistema:
+                for i in range(id):
+                    if i in practicas_en_sistema:
+                        if practicas_en_sistema[i].get_estado() == 'llevandose a cabo':
+                            practicas_en_sistema[i].set_estado('destruccion')
+
             sanitario = Sanitario(sanit_s_min, sanit_s_max, edo_const_1, edo_const_2, h)
             random_sanit = rng.random()
             sanit_s = 1 + random_sanit * (sanit_s_max - sanit_s_min)
@@ -240,10 +297,18 @@ def iniciar_colas(
                 cola_espera.sort(key=lambda p: (prioridad(p[0]), p[1]))
                 proxima, llegada_cola = cola_espera.pop(0)
                 box.set_ocupado()
-                practicas_en_sistema[id] = proxima
+                #practicas_en_sistema[id] = proxima
+
+                '''for i in range(id):
+                    if i in practicas_en_sistema:
+                        if practicas_en_sistema[i] == proxima:
+                            '''
+
+
+                print("asignamos proxima", proxima.__class__.__name__, id)
                 proxima.set_estado('llevandose a cabo')
                 id_practica_box = id
-                id += 1
+                #id += 1
                 proxima.duracion()
                 random_duracion = proxima.random_num_duracion
                 duracion_en_box = proxima.duracion_var
@@ -322,9 +387,11 @@ def iniciar_colas(
             ident = 1
             while ident < iteraciones / 2.5:
                 for pract_id, pract in practicas_en_sistema.items():
-                    registro[f"Id_Practica_{ident}"] = pract_id
-                    registro[f"Tipo_Practica_{ident}"] = pract.__class__.__name__
-                    registro[f"Estado_Practica_{ident}"] = pract.get_estado()
+                    for i in range(len(ids_actuales)):
+                        if ids_actuales[i] == pract_id:
+                            registro[f"Id_Practica_{i+1}"] = pract_id
+                            registro[f"Tipo_Practica_{i+1}"] = pract.__class__.__name__
+                            registro[f"Estado_Practica_{i+1}"] = pract.get_estado()
                     ident += 1
                 break
 
