@@ -173,7 +173,7 @@ def iniciar_colas(
                     "cola": "",
                 }
                 j = 1
-                while j < iteraciones/2.5:
+                while j < max_espera+2:
                     registro[f"Id_Practica_{j}"] = ""
                     registro[f"Tipo_Practica_{j}"] = ""
                     registro[f"Estado_Practica_{j}"] = ""
@@ -385,7 +385,7 @@ def iniciar_colas(
             }
             # Añadir dinámicamente los datos de las prácticas en sistema
             ident = 1
-            while ident < iteraciones / 2.5:
+            while ident < max_espera+3:
                 for pract_id, pract in practicas_en_sistema.items():
                     for i in range(len(ids_actuales)):
                         if ids_actuales[i] == pract_id:
