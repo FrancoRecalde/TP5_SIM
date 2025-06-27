@@ -34,6 +34,7 @@ def iniciar_colas(
     h,
     max_espera
 ):
+    global practica
     vector_estado = []
     t = 0
     box = Box()
@@ -62,7 +63,7 @@ def iniciar_colas(
     id = 1
     id_practica_box = 0
     for i in range(iteraciones):
-        print(ids_actuales)
+        print(i)
         if not eventos_futuros:
             break
 
@@ -98,7 +99,7 @@ def iniciar_colas(
         cl_rnd, cl_dur, cl_lleg = "", "", ""
         e_rnd, e_dur, e_lleg = "", "", ""
 
-        rechazada = False
+        #rechazada = False
 
 
 
@@ -168,12 +169,12 @@ def iniciar_colas(
 
                     "tasa_ocupacion_sanit": 0,
 
-                    "rechazada": False,
+                    #"rechazada": False,
 
-                    "cola": "",
+                    #"cola": "",
                 }
                 j = 1
-                while j < max_espera+2:
+                while j < max_espera+3:
                     registro[f"Id_Practica_{j}"] = ""
                     registro[f"Tipo_Practica_{j}"] = ""
                     registro[f"Estado_Practica_{j}"] = ""
@@ -201,15 +202,12 @@ def iniciar_colas(
 
                 practicas_en_sistema[id] = practica
                 if ids_actuales:
-                    print("entro a asignar id")
                     for i in range(len(ids_actuales)):
                         if ids_actuales[i] != id:
                             if ids_actuales[i] == -1:
-                                print("asigno", id)
                                 ids_actuales[i] = id
                                 break
                             elif i == len(ids_actuales)-1:
-                                print("asigno", id)
                                 ids_actuales.append(id)
                 else:
                     ids_actuales.append(id)
@@ -234,19 +232,15 @@ def iniciar_colas(
                 else:
                     cant_turnos_emergencia += 1
             else:
-                # id += 1
                 if len(cola_espera) < max_espera:
                     practicas_en_sistema[id] = practica
                     if ids_actuales:
-                        print("entro a asignar id")
                         for i in range(len(ids_actuales)):
                             if ids_actuales[i] != id:
                                 if ids_actuales[i] == -1:
-                                    print("asigno", id)
                                     ids_actuales[i] = id
                                     break
                                 elif i == len(ids_actuales)-1:
-                                    print("asigno", id)
                                     ids_actuales.append(id)
                     else:
                         ids_actuales.append(id)
@@ -260,7 +254,20 @@ def iniciar_colas(
                     cola_espera.append((practica, t))
 
                 else:
-                    rechazada = True
+                    #rechazada = True
+                    practicas_en_sistema[id] = practica
+                    practica.set_estado('destruccion')
+                    if ids_actuales:
+                        for i in range(len(ids_actuales)):
+                            if ids_actuales[i] != id:
+                                if ids_actuales[i] == -1:
+                                    ids_actuales[i] = id
+                                    break
+                                elif i == len(ids_actuales)-1:
+                                    ids_actuales.append(id)
+                    else:
+                        ids_actuales.append(id)
+                    id += 1
 
             practica.frecuencia_llegada(t)
             eventos_futuros.append(Evento(practica.llegada, evento.tipo, practica))
@@ -305,7 +312,6 @@ def iniciar_colas(
                             '''
 
 
-                print("asignamos proxima", proxima.__class__.__name__, id)
                 proxima.set_estado('llevandose a cabo')
                 id_practica_box = id
                 #id += 1
@@ -379,9 +385,9 @@ def iniciar_colas(
 
                 "tasa_ocupacion_sanit": round((tiempo_total_sanit / t) * 100, 2) if t else 0,
 
-                "rechazada": rechazada,
+                #"rechazada": rechazada,
 
-                "cola": cola_actual_str,
+                #"cola": cola_actual_str,
             }
             # Añadir dinámicamente los datos de las prácticas en sistema
             ident = 1
