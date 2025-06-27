@@ -170,7 +170,7 @@ def iniciar_colas(
 
                     "rechazada": False,
 
-                    "cola": "",
+                    #"cola": "",
                 }
                 j = 1
                 while j < max_espera+2:
@@ -381,7 +381,7 @@ def iniciar_colas(
 
                 "rechazada": rechazada,
 
-                "cola": cola_actual_str,
+                #"cola": cola_actual_str,
             }
             # Añadir dinámicamente los datos de las prácticas en sistema
             ident = 1
